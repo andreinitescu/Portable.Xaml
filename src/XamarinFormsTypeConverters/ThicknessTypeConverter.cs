@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenThicknessTypeConverter : TypeConverter
+    public class XamlThicknessTypeConverter : TypeConverter
     {
         private readonly ThicknessTypeConverter _converter;
 
-        public XenThicknessTypeConverter()
+        public XamlThicknessTypeConverter()
         {
             _converter = new ThicknessTypeConverter();
         }

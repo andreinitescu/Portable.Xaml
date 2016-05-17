@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenKeyboardTypeConverter : TypeConverter
+    public class XamlKeyboardTypeConverter : TypeConverter
     {
         private readonly KeyboardTypeConverter _converter;
 
-        public XenKeyboardTypeConverter()
+        public XamlKeyboardTypeConverter()
         {
             _converter = new KeyboardTypeConverter();
         }

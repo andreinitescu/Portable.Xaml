@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenRectangleTypeConverter : TypeConverter
+    public class XamlRectangleTypeConverter : TypeConverter
     {
         private readonly RectangleTypeConverter _converter;
 
-        public XenRectangleTypeConverter()
+        public XamlRectangleTypeConverter()
         {
             _converter = new RectangleTypeConverter();
         }

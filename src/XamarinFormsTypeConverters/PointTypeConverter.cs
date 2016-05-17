@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenPointTypeConverter : TypeConverter
+    public class XamlPointTypeConverter : TypeConverter
     {
         private readonly PointTypeConverter _converter;
 
-        public XenPointTypeConverter()
+        public XamlPointTypeConverter()
         {
             _converter = new PointTypeConverter();
         }

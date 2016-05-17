@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenUriTypeConverter : TypeConverter
+    public class XamlUriTypeConverter : TypeConverter
     {
         private readonly UriTypeConverter _converter;
 
-        public XenUriTypeConverter()
+        public XamlUriTypeConverter()
         {
             _converter = new UriTypeConverter();
         }

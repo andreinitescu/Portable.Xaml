@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenGridLengthTypeConverter : TypeConverter
+    public class XamlGridLengthTypeConverter : TypeConverter
     {
         private readonly GridLengthTypeConverter _converter;
 
-        public XenGridLengthTypeConverter()
+        public XamlGridLengthTypeConverter()
         {
             _converter = new GridLengthTypeConverter();
         }

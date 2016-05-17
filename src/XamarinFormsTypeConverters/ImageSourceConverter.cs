@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenImageSourceConverter : TypeConverter
+    public class XamlImageSourceConverter : TypeConverter
     {
         private readonly ImageSourceConverter _converter;
 
-        public XenImageSourceConverter()
+        public XamlImageSourceConverter()
         {
             _converter = new ImageSourceConverter();
         }

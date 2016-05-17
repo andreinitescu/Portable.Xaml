@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenColorTypeConverter : TypeConverter
+    public class XamlColorTypeConverter : TypeConverter
     {
         private readonly ColorTypeConverter _converter;
 
-        public XenColorTypeConverter()
+        public XamlColorTypeConverter()
         {
             _converter = new ColorTypeConverter();
         }

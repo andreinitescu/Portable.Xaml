@@ -1,12 +1,7 @@
 #if PCL
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portable.Xaml.ComponentModel;
-using System.Runtime.Serialization;
 using System.Reflection;
 
 namespace Portable.Xaml.ComponentModel
@@ -37,6 +32,22 @@ namespace Portable.Xaml.ComponentModel
 			{ typeof(TimeSpan), typeof(TimeSpanConverter) },
 			{ typeof(DateTime), typeof(DateTimeConverter) }
 		};
+
+
+        /// <summary>
+        /// Add a type converter to the recognized list.
+        /// Used when you don't maintain the types.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+	    public static bool Register(Type type, Type converter)
+	    {
+            if (converters.ContainsKey(type)) return false;
+            converters[type] = converter;
+            return true;
+	    }
+
 
 		/// <summary>
 		/// Gets the type converter for the specified type.

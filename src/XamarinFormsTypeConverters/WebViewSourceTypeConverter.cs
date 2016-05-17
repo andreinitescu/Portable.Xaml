@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenWebViewSourceTypeConverter : TypeConverter
+    public class XamlWebViewSourceTypeConverter : TypeConverter
     {
         private readonly WebViewSourceTypeConverter _converter;
 
-        public XenWebViewSourceTypeConverter()
+        public XamlWebViewSourceTypeConverter()
         {
             _converter = new WebViewSourceTypeConverter();
         }

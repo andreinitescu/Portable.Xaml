@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenLayoutOptionsConverter : TypeConverter
+    public class XamlLayoutOptionsConverter : TypeConverter
     {
         private readonly LayoutOptionsConverter _converter;
 
-        public XenLayoutOptionsConverter()
+        public XamlLayoutOptionsConverter()
         {
             _converter = new LayoutOptionsConverter();
         }

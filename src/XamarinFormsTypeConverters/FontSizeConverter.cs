@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XenFontSizeConverter : TypeConverter
+    public class XamlFontSizeConverter : TypeConverter
     {
         private readonly FontSizeConverter _converter;
 
-        public XenFontSizeConverter()
+        public XamlFontSizeConverter()
         {
             _converter = new FontSizeConverter();
         }
