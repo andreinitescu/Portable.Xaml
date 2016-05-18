@@ -58,8 +58,12 @@ namespace Portable.Xaml.ComponentModel
 		{
 			var attr = type.GetTypeInfo().GetCustomAttribute<TypeConverterAttribute>();
 			Type converterType = null;
-			if (attr != null)
-				converterType = Type.GetType(attr.ConverterTypeName);
+
+            if (attr != null)
+		    {
+		        converterType = Type.GetType(attr.ConverterTypeName);
+		    }
+
 			if (converterType == null)
 			{
 				if (!converters.TryGetValue(type, out converterType))

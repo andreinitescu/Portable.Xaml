@@ -110,9 +110,10 @@ namespace Portable.Xaml
 				return vs.ConverterInstance.ConvertToString (obj, vsctx);
 
 			// FIXME: does this make sense?
-			var vc = (xm != null ? xm.TypeConverter : null) ?? xt.TypeConverter;
-			var tc = vc != null ? vc.ConverterInstance : null;
-			if (tc != null && typeof(string) != null && tc.CanConvertTo (vsctx, typeof(string)))
+			var vc = xm?.TypeConverter ?? xt.TypeConverter;
+			var tc = vc?.ConverterInstance;
+
+            if (tc != null && tc.CanConvertTo (vsctx, typeof(string)))
 				return (string)tc.ConvertTo (vsctx, CultureInfo.InvariantCulture, obj, typeof(string));
 			if (obj is string || obj == null)
 				return (string)obj;
@@ -121,7 +122,7 @@ namespace Portable.Xaml
 
 		public static TypeConverter GetTypeConverter (this Type type)
 		{
-			return TypeDescriptor.GetConverter (type);
+		    return TypeDescriptor.GetConverter(type);
 		}
 
 		/*

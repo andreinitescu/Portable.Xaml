@@ -5,3 +5,4 @@ packages/
 .vs/
 *.user
 /src/XamarinFormsTypeConverters/bin/Debug
+/src/Test/XamarinFormsTypeConverters.Tests/bin/Debug
