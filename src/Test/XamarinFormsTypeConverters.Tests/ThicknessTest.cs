@@ -4,7 +4,7 @@ using Xamarin.Forms;
 namespace XamarinFormsTypeConverters.Tests
 {
     [TestFixture]
-    public class ThicknessTests
+    public class ThicknessTest
     {
         [SetUp]
         public void BeforeTest()
@@ -15,13 +15,14 @@ namespace XamarinFormsTypeConverters.Tests
         [Test]
         public void Padding_value_should_be_converted_to_string()
         {
+            var writer = new TestXamlWriter();
             var page = new ContentPage
             {
                 Padding = new Thickness(5, 10, 15, 20)
             };
 
-            var xaml = TestXamlWriter.Save(page);
-            XamlAssert.AreEqual(xaml, "ContentPage.Padding", "5,10,15,20");
+            var xaml = writer.Save(page);
+            XamlAssert.AreEqual(xaml, "Padding", "5,10,15,20");
         }
     }
 }

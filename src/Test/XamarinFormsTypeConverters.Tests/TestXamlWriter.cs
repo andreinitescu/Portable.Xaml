@@ -12,9 +12,9 @@ namespace XamarinFormsTypeConverters.Tests
         }
     }
 
-    public static class TestXamlWriter
+    public class TestXamlWriter
     {
-        public static string Save(object instance)
+        public string Save(object instance)
         {
             var sb = new StringBuilder();
 

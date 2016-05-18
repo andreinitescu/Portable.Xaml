@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Globalization;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XamlColorTypeConverter : TypeConverter
+    public class XamlColorTypeConverter : Portable.Xaml.ComponentModel.TypeConverter
     {
         private readonly ColorTypeConverter _converter;
+        private static readonly string[] Colors;
+
+        static XamlColorTypeConverter()
+        {
+            Colors = GetDefinedColors();
+        }
 
         public XamlColorTypeConverter()
         {
@@ -18,25 +24,23 @@ namespace XamarinFormsTypeConverters
             return _converter.CanConvertFrom(sourceType);
         }
 
-        [Obsolete("use ConvertFromInvariantString (string)")]
-        public override object ConvertFrom(CultureInfo culture, object value)
-        {
-            return _converter.ConvertFromInvariantString(value as string);
-        }
-
-        [Obsolete("use ConvertFromInvariantString (string)")]
         public override object ConvertFrom(object o)
         {
             return _converter.ConvertFromInvariantString(o as string);
         }
 
-        public bool CanConvertTo(Type destinationType)
+        public override bool CanConvertTo(Type destinationType)
         {
             return destinationType == typeof (string);
         }
 
-        public object ConvertTo(object value, Type destinationType)
+        public override object ConvertTo(object value, Type destinationType)
         {
+            if (Colors.Contains(value))
+            {
+                return value;
+            }
+
             var o = (Color) value;
 
             if (o.A == -1 && o.R == -1 && o.G == -1 && o.B == -1)
@@ -44,12 +48,25 @@ namespace XamarinFormsTypeConverters
                 return "Default";
             }
 
+
             if (o.A == 1)
             {
                 return $"#{(int) (o.R*255):X2}{(int) (o.G*255):X2}{(int) (o.B*255):X2}";
             }
 
             return $"#{(int) (o.A*255):X2}{(int) (o.R*255):X2}{(int) (o.G*255):X2}{(int) (o.B*255):X2}";
+        }
+
+
+        private static string[] GetDefinedColors()
+        {
+            var names = typeof (Color)
+                .GetStaticFields()
+                .Where(f => f.FieldType == typeof (Color))
+                .Select(f => f.Name)
+                .ToArray();
+
+            return names;
         }
     }
 }

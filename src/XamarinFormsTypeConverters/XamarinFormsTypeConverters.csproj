@@ -47,6 +47,7 @@
     <Compile Include="PointTypeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleTypeConverter.cs" />
+    <Compile Include="ReflectionMethods.cs" />
     <Compile Include="TypeConverterRegistrar.cs" />
     <Compile Include="ThicknessTypeConverter.cs" />
     <Compile Include="UriTypeConverter.cs" />

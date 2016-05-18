@@ -9,8 +9,8 @@ namespace XamarinFormsTypeConverters.Tests
         public static void AreEqual(string xml, string property, string value, string message = null)
         {
             var doc = XDocument.Parse(xml);
-            var match = doc.Document?.Descendants().FirstOrDefault(p => p.Name.LocalName == property);
-            Assert.AreEqual(match?.Value, value, message);
+            var attrib = doc.Root?.Attributes(property).FirstOrDefault();
+            Assert.AreEqual(attrib?.Value, value, message);
         }
     }
 }
