@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Globalization;
 using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public class XamlWebViewSourceTypeConverter : TypeConverter
+    public class XamlWebViewSourceTypeConverter : Portable.Xaml.ComponentModel.TypeConverter
     {
         private readonly WebViewSourceTypeConverter _converter;
 
@@ -18,24 +17,17 @@ namespace XamarinFormsTypeConverters
             return _converter.CanConvertFrom(sourceType);
         }
 
-        [Obsolete("use ConvertFromInvariantString (string)")]
-        public override object ConvertFrom(CultureInfo culture, object value)
-        {
-            return _converter.ConvertFromInvariantString(value as string);
-        }
-
-        [Obsolete("use ConvertFromInvariantString (string)")]
         public override object ConvertFrom(object o)
         {
             return _converter.ConvertFromInvariantString(o as string);
         }
 
-        public bool CanConvertTo(Type destinationType)
+        public override bool CanConvertTo(Type destinationType)
         {
             return destinationType == typeof(string);
         }
 
-        public object ConvertTo(object value, Type destinationType)
+        public override object ConvertTo(object value, Type destinationType)
         {
             var o = (UrlWebViewSource) value;
             return o.Url;
