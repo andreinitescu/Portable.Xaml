@@ -6,3 +6,5 @@ packages/
 *.user
 /src/XamarinFormsTypeConverters/bin/Debug
 /src/Test/XamarinFormsTypeConverters.Tests/bin/Debug
+/src/Test/Xaml.Android.Tests/bin/Debug
+/src/Test/Xaml.Tests/bin/Debug

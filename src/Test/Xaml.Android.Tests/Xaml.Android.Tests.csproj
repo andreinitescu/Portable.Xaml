@@ -7,8 +7,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XamarinFormsTypeConverters.Tests</RootNamespace>
-    <AssemblyName>XamarinFormsTypeConverters.Tests</AssemblyName>
+    <RootNamespace>Xaml.Android.Tests</RootNamespace>
+    <AssemblyName>Xaml.Android.Tests</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -27,7 +27,7 @@
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -36,17 +36,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkSkip />
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <BundleAssemblies>False</BundleAssemblies>
-    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-    <AndroidSupportedAbis>
-    </AndroidSupportedAbis>
-    <AndroidStoreUncompressedFileExtensions />
-    <MandroidI18n />
-    <Debugger>Xamarin</Debugger>
-    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -126,15 +115,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColorTest.cs" />
-    <Compile Include="FileImageSourceTests.cs" />
+    <Compile Include="FontSizeTest.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="NUnitFix.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestXamlWriter.cs" />
-    <Compile Include="ThicknessTest.cs" />
-    <Compile Include="XamlAssert.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -152,9 +137,6 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MainActivity.cs.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Portable.Xaml\Portable.Xaml-pcl259.csproj">
       <Project>{179484ec-db00-451a-ad2d-2e2ab20de519}</Project>
       <Name>Portable.Xaml-pcl259</Name>
@@ -162,6 +144,10 @@
     <ProjectReference Include="..\..\XamarinFormsTypeConverters\XamarinFormsTypeConverters.csproj">
       <Project>{b0a14c7c-cf40-49b5-bf05-234d45cf4a56}</Project>
       <Name>XamarinFormsTypeConverters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xaml.Tests\Xaml.Tests.csproj">
+      <Project>{991f1f09-6a1c-4688-ac0b-27b73e082073}</Project>
+      <Name>Xaml.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

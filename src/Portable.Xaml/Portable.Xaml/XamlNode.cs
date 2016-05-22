@@ -29,6 +29,7 @@ using System.Reflection;
 using Portable.Xaml.Markup;
 using Portable.Xaml.Schema;
 using System.Xml;
+using Portable.Xaml.ComponentModel;
 
 namespace Portable.Xaml
 {
@@ -240,6 +241,20 @@ namespace Portable.Xaml
 				return obj;
 			if (xm == XamlLanguage.PositionalParameters)
 				return xobj.GetRawValue (); // dummy value
+
+		    TypeConverter tc = null;
+		    var cas = xm.GetCustomAttributeProvider().GetCustomAttributes(true);
+		    foreach (var ca in cas)
+		    {
+		        tc = TypeDescriptor.GetConverter(ca);
+		        if (tc != null) break;
+		    }
+
+		    if (tc != null)
+		    {
+		        return xm.UnderlyingGetter.Invoke(xobj.GetRawValue(), new object[]{});
+		    }
+
 			return xm.Invoker.GetValue (xobj.GetRawValue ());
 		}
 	}

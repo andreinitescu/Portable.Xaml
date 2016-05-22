@@ -1,12 +1,11 @@
-using System;
-using Android.Provider;
 using NUnit.Framework;
 using Xamarin.Forms;
+using XamarinFormsTypeConverters;
 
-namespace XamarinFormsTypeConverters.Tests
+namespace Xaml.Tests
 {
     [TestFixture]
-    public class FileImageSourceTests
+    public class ThicknessTest
     {
         [SetUp]
         public void BeforeTest()
@@ -15,18 +14,16 @@ namespace XamarinFormsTypeConverters.Tests
         }
 
         [Test]
-        public void Should_set_red_to_hex_value()
+        public void Padding_value_should_be_converted_to_string()
         {
             var writer = new TestXamlWriter();
-
             var page = new ContentPage
             {
-                Content = new Button
-                {
-                }
+                Padding = new Thickness(5, 10, 15, 20)
             };
 
             var xaml = writer.Save(page);
+            XamlAssert.AreEqual(xaml, "Padding", "5,10,15,20");
         }
     }
 }

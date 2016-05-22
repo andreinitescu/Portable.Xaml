@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinFormsTypeConverters"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portable.Xaml-pcl259", "Portable.Xaml\Portable.Xaml-pcl259.csproj", "{179484EC-DB00-451A-AD2D-2E2AB20DE519}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinFormsTypeConverters.Tests", "Test\XamarinFormsTypeConverters.Tests\XamarinFormsTypeConverters.Tests.csproj", "{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xaml.Tests", "Test\Xaml.Tests\Xaml.Tests.csproj", "{991F1F09-6A1C-4688-AC0B-27B73E082073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xaml.Android.Tests", "Test\Xaml.Android.Tests\Xaml.Android.Tests.csproj", "{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{179484EC-DB00-451A-AD2D-2E2AB20DE519}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{179484EC-DB00-451A-AD2D-2E2AB20DE519}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{179484EC-DB00-451A-AD2D-2E2AB20DE519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{991F1F09-6A1C-4688-AC0B-27B73E082073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{991F1F09-6A1C-4688-AC0B-27B73E082073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{991F1F09-6A1C-4688-AC0B-27B73E082073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{991F1F09-6A1C-4688-AC0B-27B73E082073}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU

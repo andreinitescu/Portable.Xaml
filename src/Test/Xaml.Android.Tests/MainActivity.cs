@@ -1,4 +1,5 @@
-﻿// Copyright (c) 2015 Charlie Poole
+﻿// ***********************************************************************
+// Copyright (c) 2015 Charlie Poole
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -20,20 +21,32 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+using Android.App;
+using Android.Content.PM;
+using Android.OS;
 
-[assembly: AssemblyTitle("XamarinFormsTypeConverters.Tests")]
-[assembly: AssemblyDescription("NUnit Test Runner for Android")]
+namespace Xaml.Android.Tests
+{
+    [Activity(Label = "XAML Tests", Icon = "@drawable/icon", Theme = "@android:style/Theme.Holo.Light", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
 
-[assembly: AssemblyCompany("NUnit Software")]
-[assembly: AssemblyProduct("NUnit 3.0")]
-[assembly: AssemblyCopyright("Copyright (C) 2015 Charlie Poole")]
-[assembly: AssemblyTrademark("NUnit is a trademark of NUnit Software")]
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyConfiguration("")]
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+            // This will load all tests within the current project
+            var nunit = new NUnit.Runner.App();
 
-[assembly: ComVisible(false)]
+            // If you want to add tests in another assembly
+            //nunit.AddTestAssembly(typeof(MyTests).Assembly);
+
+            // Do you want to automatically run tests when the app starts?
+            nunit.AutoRun = true;
+
+            LoadApplication(nunit);
+        }
+    }
+}
+

@@ -2,7 +2,7 @@ using System.Text;
 using System.Xml;
 using Portable.Xaml;
 
-namespace XamarinFormsTypeConverters.Tests
+namespace Xaml.Tests
 {
     public class XamarinFormsSchemaContext : XamlSchemaContext
     {

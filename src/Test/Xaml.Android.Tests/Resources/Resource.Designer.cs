@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("XamarinFormsTypeConverters.Tests.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Xaml.Android.Tests.Resource", IsApplication=true)]
 
-namespace XamarinFormsTypeConverters.Tests
+namespace Xaml.Android.Tests
 {
 	
 	
@@ -26,9 +26,9 @@ namespace XamarinFormsTypeConverters.Tests
 		
 		public static void UpdateIdValues()
 		{
-			global::Nunit.Runner.Resource.String.ApplicationName = global::XamarinFormsTypeConverters.Tests.Resource.String.ApplicationName;
-			global::Nunit.Runner.Resource.String.Hello = global::XamarinFormsTypeConverters.Tests.Resource.String.Hello;
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::XamarinFormsTypeConverters.Tests.Resource.Attribute.actionBarSize;
+			global::Nunit.Runner.Resource.String.ApplicationName = global::Xaml.Android.Tests.Resource.String.ApplicationName;
+			global::Nunit.Runner.Resource.String.Hello = global::Xaml.Android.Tests.Resource.String.Hello;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Xaml.Android.Tests.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

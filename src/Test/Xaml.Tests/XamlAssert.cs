@@ -2,7 +2,7 @@ using System.Linq;
 using System.Xml.Linq;
 using NUnit.Framework;
 
-namespace XamarinFormsTypeConverters.Tests
+namespace Xaml.Tests
 {
     public static class XamlAssert
     {

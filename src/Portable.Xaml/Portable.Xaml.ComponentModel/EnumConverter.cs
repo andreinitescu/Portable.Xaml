@@ -47,7 +47,16 @@ namespace Portable.Xaml.ComponentModel
 			}
 			return base.ConvertFrom(context, culture, value);
 		}
-	}
 
+        public override bool CanConvertTo(Type destinationType)
+        {
+            return destinationType == typeof(string);
+        }
+
+        public override object ConvertTo(object value, Type destinationType)
+	    {
+	        return value?.ToString();
+	    }
+	}
 }
 

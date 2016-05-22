@@ -30,7 +30,7 @@ namespace XamarinFormsTypeConverters
         public override object ConvertTo(object value, Type destinationType)
         {
             var o = (double) value;
-            var fs = Math.Round(o, MidpointRounding.AwayFromZero);
+            var fs = Math.Ceiling(o);
             return fs.ToString();
         }
     }
