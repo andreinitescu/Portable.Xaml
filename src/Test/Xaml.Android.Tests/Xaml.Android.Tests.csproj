@@ -132,6 +132,7 @@
     <Compile Include="FontTypeTest.cs" />
     <Compile Include="ImageSourceTest.cs" />
     <Compile Include="KeyboardTest.cs" />
+    <Compile Include="LayoutOptionsTest.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="NUnitFix.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

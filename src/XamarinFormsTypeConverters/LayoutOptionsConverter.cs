@@ -30,7 +30,28 @@ namespace XamarinFormsTypeConverters
         public override object ConvertTo(object value, Type destinationType)
         {
             var o = (LayoutOptions) value;
-            return o.Alignment.ToString();
+
+            if (o.Alignment == LayoutAlignment.Center)
+            {
+                return o.Expands ? "CenterAndExpand" : "Center";
+            }
+
+            if (o.Alignment == LayoutAlignment.End)
+            {
+                return o.Expands ? "EndAndExpand" : "End";
+            }
+
+            if (o.Alignment == LayoutAlignment.Fill)
+            {
+                return o.Expands ? "FillAndExpand" : "Fill";
+            }
+
+            if (o.Alignment == LayoutAlignment.Start)
+            {
+                return o.Expands ? "StartAndExpand" : "Start";
+            }
+
+            return string.Empty;
         }
     }
 }
