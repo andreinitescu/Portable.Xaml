@@ -2,7 +2,7 @@ using NUnit.Framework;
 using Xamarin.Forms;
 using XamarinFormsTypeConverters;
 
-namespace Xaml.Tests
+namespace Xaml.Android.Tests
 {
     [TestFixture]
     public class ColorTest

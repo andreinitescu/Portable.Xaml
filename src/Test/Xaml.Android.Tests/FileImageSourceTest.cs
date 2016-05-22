@@ -1,11 +1,11 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Xamarin.Forms;
 using XamarinFormsTypeConverters;
 
 namespace Xaml.Android.Tests
 {
     [TestFixture]
-    public class FontSizeTest
+    public class FileImageSourceTest
     {
         [SetUp]
         public void BeforeTest()
@@ -14,18 +14,17 @@ namespace Xaml.Android.Tests
         }
 
         [Test]
-        public void Should_serialize_fontsize()
+        public void Should_serialize_filename()
         {
             var writer = new TestXamlWriter();
 
             var btn = new Button
             {
-                FontSize = 25
+                Image = (FileImageSource) ImageSource.FromFile("test.png")
             };
 
             var xaml = writer.Save(btn);
-
-            XamlAssert.AreEqual(xaml, "FontSize", "25", "FontSize converter was not executed?");
+            XamlAssert.AreEqual(xaml, "Image", "test.png");
         }
     }
 }

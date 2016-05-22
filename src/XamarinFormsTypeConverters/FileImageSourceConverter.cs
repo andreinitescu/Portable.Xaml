@@ -29,7 +29,8 @@ namespace XamarinFormsTypeConverters
 
         public override object ConvertTo(object value, Type destinationType)
         {
-            return value as string;
+            var o = value as FileImageSource;
+            return o?.File;
         }
     }
 }

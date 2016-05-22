@@ -1,10 +1,10 @@
 using NUnit.Framework;
 using Xamarin.Forms;
 using XamarinFormsTypeConverters;
-using Xaml.Tests;
 
 namespace Xaml.Android.Tests
 {
+    [TestFixture]
     public class ButtonContentLayoutTest
     {
         [SetUp]

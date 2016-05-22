@@ -2,7 +2,7 @@ using System.Linq;
 using System.Xml.Linq;
 using NUnit.Framework;
 
-namespace Xaml.Tests
+namespace Xaml.Android.Tests
 {
     public static class XamlAssert
     {
