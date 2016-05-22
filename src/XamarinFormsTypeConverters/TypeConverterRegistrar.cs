@@ -10,7 +10,8 @@ namespace XamarinFormsTypeConverters
     {
         private static readonly Dictionary<Type, Type> Redirects = new Dictionary<Type, Type>
         {
-            {typeof(FontSizeConverter), typeof(XamlFontSizeConverter)}
+            {typeof(FontSizeConverter), typeof(XamlFontSizeConverter)},
+            {typeof(Xamarin.Forms.UriTypeConverter), typeof(XamlUriTypeConverter)}
         };
 
         static readonly Dictionary<Type, Type> Converters = new Dictionary<Type, Type>
