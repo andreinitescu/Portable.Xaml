@@ -129,6 +129,7 @@
     <Compile Include="ColorTest.cs" />
     <Compile Include="FileImageSourceTest.cs" />
     <Compile Include="FontSizeTest.cs" />
+    <Compile Include="FontTypeTest.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="NUnitFix.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

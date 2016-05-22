@@ -30,7 +30,7 @@ namespace XamarinFormsTypeConverters
         public override object ConvertTo(object value, Type destinationType)
         {
             var o = (Font) value;
-            var s = Math.Round(o.FontSize, MidpointRounding.AwayFromZero);
+            var s = Math.Ceiling(o.FontSize);
 
             if (string.IsNullOrWhiteSpace(o.FontFamily) || o.FontSize == 0)
             {

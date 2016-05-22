@@ -259,9 +259,11 @@ namespace Portable.Xaml
 		
 		protected string GetValueString (XamlMember xm, object value)
 		{
+            // todo: mike
 			// change XamlXmlReader too if we change here.
 			if ((value as string) == String.Empty) // FIXME: there could be some escape syntax.
-				return "\"\"";
+				return string.Empty;
+
 			if (value is string)
 				return (string) value;
 
