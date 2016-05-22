@@ -36,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ButtonContentTypeConverter.cs" />
     <Compile Include="ColorTypeConverter.cs" />
     <Compile Include="FileImageSourceConverter.cs" />
     <Compile Include="FontSizeConverter.cs" />

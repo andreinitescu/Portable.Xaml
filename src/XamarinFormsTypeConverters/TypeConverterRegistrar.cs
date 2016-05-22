@@ -12,6 +12,7 @@ namespace XamarinFormsTypeConverters
             //{ typeof(Double), typeof(XamarinFontSizeConverter) },
             //{ typeof(Uri), typeof(XamlUriTypeConverter) },
 
+            { typeof(Button.ButtonContentLayout), typeof(XamlButtonContentTypeConverter) },
             { typeof(Color), typeof(XamlColorTypeConverter) },
             { typeof(FileImageSource), typeof(XamlFileImageSourceConverter) },
             { typeof(Font), typeof(XamlFontTypeConverter) },
