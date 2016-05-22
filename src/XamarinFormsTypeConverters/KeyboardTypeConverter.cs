@@ -29,35 +29,37 @@ namespace XamarinFormsTypeConverters
 
         public override object ConvertTo(object value, Type destinationType)
         {
+            // todo: CustomKeyboard not supported?
+
             var o = (Keyboard) value;
   
             if (o == Keyboard.Chat)
             {
-                return "Keyboard.Chat";
+                return "Chat";
             }
             if (o == Keyboard.Default)
             {
-                return "Keyboard.Default";
+                return "Default";
             }
             if (o == Keyboard.Email)
             {
-                return "Keyboard.Email";
+                return "Email";
             }
             if (o == Keyboard.Url)
             {
-                return "Keyboard.Url";
+                return "Url";
             }
             if (o == Keyboard.Numeric)
             {
-                return "Keyboard.Numeric";
+                return "Numeric";
             }
             if (o == Keyboard.Telephone)
             {
-                return "Keyboard.Telephone";
+                return "Telephone";
             }
             if (o == Keyboard.Text)
             {
-                return "Keyboard.Text";
+                return "Text";
             }
 
             return string.Empty;
