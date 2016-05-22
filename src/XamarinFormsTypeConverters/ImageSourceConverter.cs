@@ -29,17 +29,13 @@ namespace XamarinFormsTypeConverters
 
         public override object ConvertTo(object value, Type destinationType)
         {
-            if (value is string)
-            {
-                return (string) value;
-            }
+            var uis = value as UriImageSource;
+            if (uis != null) return uis.Uri.OriginalString;
 
-            if (value is UriImageSource)
-            {
-                return ((UriImageSource) value).Uri.AbsoluteUri;
-            }
+            var ois = value as FileImageSource;
+            if (ois != null) return ois.File;
 
-            return value.ToString();
+            return string.Empty;
         }
     }
 }
