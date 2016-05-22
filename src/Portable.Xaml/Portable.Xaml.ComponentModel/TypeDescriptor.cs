@@ -1,12 +1,7 @@
 #if PCL
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portable.Xaml.ComponentModel;
-using System.Runtime.Serialization;
 using System.Reflection;
 
 namespace Portable.Xaml.ComponentModel
@@ -17,7 +12,7 @@ namespace Portable.Xaml.ComponentModel
 	/// </summary>
 	public static class TypeDescriptor
 	{
-		static readonly Dictionary<Type, Type> converters = new Dictionary<Type, Type>
+        static readonly Dictionary<Type, Type> converters = new Dictionary<Type, Type>
 		{
 			{ typeof(bool), typeof(BoolConverter) },
 			{ typeof(char), typeof(CharConverter) },
@@ -38,6 +33,51 @@ namespace Portable.Xaml.ComponentModel
 			{ typeof(DateTime), typeof(DateTimeConverter) }
 		};
 
+        static readonly Dictionary<Type, Type> redirects = new Dictionary<Type, Type>();
+
+        public static Func<object, Type> GetRedirect;
+
+        /// <summary>
+        /// Add a type converter to the recognized list.
+        /// Used when you don't maintain the types.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        public static bool Register(Type type, Type converter)
+	    {
+            if (converters.ContainsKey(type)) return false;
+            converters[type] = converter;
+            return true;
+	    }
+
+        /// <summary>
+        /// Add a type converter redirect.
+        /// </summary>
+        /// <param name="xtc"></param>
+        /// <param name="ptc"></param>
+        /// <returns></returns>
+	    public static bool Redirect(Type xtc, Type ptc)
+	    {
+	        if (redirects.ContainsKey(xtc)) return false;
+	        redirects[xtc] = ptc;
+	        return true;
+	    }
+
+        /// <summary>
+        /// Lookup a type converter redirect.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+	    public static TypeConverter GetConverter(object obj)
+        {
+            var tc = GetRedirect?.Invoke(obj);
+            if (tc == null) return null;
+
+            return Activator.CreateInstance(tc) as TypeConverter;
+        }
+
+
 		/// <summary>
 		/// Gets the type converter for the specified type.
 		/// </summary>
@@ -47,8 +87,12 @@ namespace Portable.Xaml.ComponentModel
 		{
 			var attr = type.GetTypeInfo().GetCustomAttribute<TypeConverterAttribute>();
 			Type converterType = null;
-			if (attr != null)
-				converterType = Type.GetType(attr.ConverterTypeName);
+
+            if (attr != null)
+		    {
+		        converterType = Type.GetType(attr.ConverterTypeName);
+		    }
+
 			if (converterType == null)
 			{
 				if (!converters.TryGetValue(type, out converterType))

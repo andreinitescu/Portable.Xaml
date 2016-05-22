@@ -13,14 +13,14 @@ namespace Portable.Xaml.ComponentModel
 	/// <summary>
 	/// Type converter implementation, for type converter compatibility in portable class libraries.
 	/// </summary>
-	public class TypeConverter
+	public abstract class TypeConverter
 	{
 		/// <summary>
 		/// Determines whether this instance can convert from the specified sourceType.
 		/// </summary>
 		/// <returns><c>true</c> if this instance can convert from the specified sourceType; otherwise, <c>false</c>.</returns>
 		/// <param name="sourceType">Source type to convert from.</param>
-		public bool CanConvertFrom(Type sourceType)
+		public virtual bool CanConvertFrom(Type sourceType)
 		{
 			return CanConvertFrom(null, sourceType);
 		}
@@ -41,7 +41,7 @@ namespace Portable.Xaml.ComponentModel
 		/// </summary>
 		/// <returns><c>true</c> if this instance can convert to the specified destinationType; otherwise, <c>false</c>.</returns>
 		/// <param name="destinationType">Destination type.</param>
-		public bool CanConvertTo(Type destinationType)
+		public virtual bool CanConvertTo(Type destinationType)
 		{
 			return CanConvertTo(null, destinationType);
 		}
@@ -62,7 +62,7 @@ namespace Portable.Xaml.ComponentModel
 		/// </summary>
 		/// <returns>The converted object.</returns>
 		/// <param name="o">Object to convert.</param>
-		public object ConvertFrom(object o)
+		public virtual object ConvertFrom(object o)
 		{
 			return ConvertFrom(null, CultureInfo.CurrentCulture, o);
 		}
@@ -139,7 +139,7 @@ namespace Portable.Xaml.ComponentModel
 		/// <returns>The converted object.</returns>
 		/// <param name="value">Value to convert.</param>
 		/// <param name="destinationType">Destination type to convert to.</param>
-		public object ConvertTo(object value, Type destinationType)
+		public virtual object ConvertTo(object value, Type destinationType)
 		{
 			return ConvertTo(null, null, value, destinationType);
 		}
@@ -164,7 +164,12 @@ namespace Portable.Xaml.ComponentModel
 				if (value == null)
 					return String.Empty;
 
-				if (culture != null)
+                var converted = ConvertTo(value, destinationType) as string;
+
+                if (converted != null)
+			        return converted;
+
+                if (culture != null)
 					return Convert.ToString(value, culture);
 
 				return value.ToString();
