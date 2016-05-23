@@ -708,7 +708,7 @@ namespace Portable.Xaml
 
 		protected virtual XamlMember LookupContentProperty ()
 		{
-		    var cpName = TypeDescriptor.GetContentPropertyName(this);
+		    var cpName = TypeDescriptor.LookupContentProperty(this);
 		    if (!string.IsNullOrWhiteSpace(cpName))
 		    {
 		        return GetMember(cpName);
