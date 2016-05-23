@@ -130,6 +130,7 @@
     <Compile Include="FileImageSourceTest.cs" />
     <Compile Include="FontSizeTest.cs" />
     <Compile Include="FontTypeTest.cs" />
+    <Compile Include="GridLengthTest.cs" />
     <Compile Include="ImageSourceTest.cs" />
     <Compile Include="KeyboardTest.cs" />
     <Compile Include="LayoutOptionsTest.cs" />

@@ -407,17 +407,45 @@ namespace Portable.Xaml
 			else if (m2 == XamlLanguage.Name)
 				return -1;
 
-			// 4. ContentProperty is always returned last
-			if (m1.DeclaringType != null && m1.DeclaringType.ContentProperty == m1) {
+            // 4. ContentProperty is always returned last
+            /*
+            if (m1.DeclaringType != null && m1.DeclaringType.ContentProperty == m1) {
 				if (!(m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2))
 					return 1;
 			}
 			else if (m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2)
 				return -1;
+                */
+
+            var cp1 = m1.DeclaringType?.ContentProperty;
+            var cp2 = m2.DeclaringType?.ContentProperty;
+
+            if (m1.DeclaringType?.Name == cp1?.DeclaringType.Name && m1.Name == cp1?.Name)
+            {
+                if (!(m2.DeclaringType?.Name == cp2?.DeclaringType.Name && m2.Name == cp2?.Name))
+                {
+                    return 1;
+                }
+            }
+
+            if (m1.DeclaringType != null && m1.DeclaringType.ContentProperty == m1)
+            {
+                if (!(m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2))
+                    return 1;
+            }
+            else if (m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2)
+            {
+                return -1;
+            }
+
+            if (m2?.DeclaringType?.Name == cp2?.DeclaringType.Name && m2.Name == cp2?.Name)
+            {
+                return -1;
+            }
 
 
-			// then, compare names.
-			return String.CompareOrdinal (m1.Name, m2.Name);
+            // then, compare names.
+            return String.CompareOrdinal (m1.Name, m2.Name);
 		}
 
 		internal static string GetInternalXmlName (this XamlMember xm)
