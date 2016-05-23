@@ -708,6 +708,12 @@ namespace Portable.Xaml
 
 		protected virtual XamlMember LookupContentProperty ()
 		{
+		    var cpName = TypeDescriptor.GetContentPropertyName(this);
+		    if (!string.IsNullOrWhiteSpace(cpName))
+		    {
+		        return GetMember(cpName);
+		    }
+
 			var a = this.GetCustomAttribute<ContentPropertyAttribute> ();
 			return a != null && a.Name != null ? GetMember (a.Name) : null;
 		}
@@ -726,7 +732,7 @@ namespace Portable.Xaml
 			return l;
 		}
 
-		internal ICustomAttributeProvider GetCustomAttributeProvider ()
+		public ICustomAttributeProvider GetCustomAttributeProvider ()
 		{
 			return attributeProvider.Get(LookupCustomAttributeProvider);
 		}

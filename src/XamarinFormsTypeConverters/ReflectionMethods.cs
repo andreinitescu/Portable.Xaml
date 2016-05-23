@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Portable.Xaml.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Portable.Xaml;
 
 namespace XamarinFormsTypeConverters
 {
@@ -19,6 +21,22 @@ namespace XamarinFormsTypeConverters
 
     public static class ReflectionMethods
     {
+        public static T GetCustomAttribute<T>(this ICustomAttributeProvider type, bool inherit) where T : Attribute
+        {
+            foreach (var a in type.GetCustomAttributes(typeof(T), inherit))
+                return (T)a;
+            return null;
+        }
+
+        public static T GetCustomAttribute<T>(this XamlType type) where T : Attribute
+        {
+            if (type.UnderlyingType == null)
+                return null;
+
+            var ret = type.GetCustomAttributeProvider().GetCustomAttribute<T>(true);
+            return ret ?? type.BaseType?.GetCustomAttribute<T>();
+        }
+
         public static IEnumerable<FieldInfo> GetStaticFields(this Type type)
         {
             return type
