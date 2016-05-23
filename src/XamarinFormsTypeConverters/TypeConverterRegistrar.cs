@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Portable.Xaml.ComponentModel;
 using Xamarin.Forms;
+using ContentPropertyAttribute = Portable.Xaml.Markup.ContentPropertyAttribute;
 
 namespace XamarinFormsTypeConverters
 {
@@ -52,6 +53,12 @@ namespace XamarinFormsTypeConverters
                 return Redirects
                 .FirstOrDefault(r => r.Key.AssemblyQualifiedName.Equals(tca?.ConverterTypeName))
                     .Value;
+            };
+
+            TypeDescriptor.GetContentPropertyName = xt =>
+            {
+                var ca = xt.GetCustomAttribute<Xamarin.Forms.ContentPropertyAttribute>();
+                return ca?.Name;
             };
         }
     }
