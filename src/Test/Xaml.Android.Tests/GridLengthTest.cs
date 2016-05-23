@@ -14,15 +14,20 @@ namespace Xaml.Android.Tests
         }
 
         [Test]
-        public void Font_should_be_empty_string()
+        public void Should_serialize_gridlength()
         {
             var writer = new TestXamlWriter();
-            var grid = new ContentPage
+
+            var grid = new Grid();
+            grid.Children.Add(new Label());
+
+            var page = new ContentPage
             {
-                Content = new Grid()
+                Content = grid
             };
 
-            var xaml = writer.Save(grid);
+            var xaml = writer.Save(page);
+            Assert.Fail();
         }
     }
 }
