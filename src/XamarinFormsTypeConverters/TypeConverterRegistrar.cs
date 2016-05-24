@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Portable.Xaml.ComponentModel;
+using Portable.Xaml.Portable.Xaml;
 using Xamarin.Forms;
-using ContentPropertyAttribute = Portable.Xaml.Markup.ContentPropertyAttribute;
 
 namespace XamarinFormsTypeConverters
 {
@@ -16,7 +16,7 @@ namespace XamarinFormsTypeConverters
             {typeof(GridLengthTypeConverter), typeof(XamlGridLengthTypeConverter)},
         };
 
-        static readonly Dictionary<Type, Type> Converters = new Dictionary<Type, Type>
+        private static readonly Dictionary<Type, Type> Converters = new Dictionary<Type, Type>
         {
             { typeof(Enum), typeof(EnumConverter)},
             { typeof(Button.ButtonContentLayout), typeof(XamlButtonContentTypeConverter) },
@@ -52,15 +52,11 @@ namespace XamarinFormsTypeConverters
                 var tca = o as Xamarin.Forms.TypeConverterAttribute;
 
                 return Redirects
-                .FirstOrDefault(r => r.Key.AssemblyQualifiedName.Equals(tca?.ConverterTypeName))
+                    .FirstOrDefault(r => r.Key.AssemblyQualifiedName.Equals(tca?.ConverterTypeName))
                     .Value;
             };
 
-            TypeDescriptor.GetContentPropertyName = xt =>
-            {
-                var ca = xt.GetCustomAttribute<Xamarin.Forms.ContentPropertyAttribute>();
-                return ca?.Name;
-            };
+            EnhancedXamlMethods.GetContentPropertyName = t => t?.GetCustomAttribute<ContentPropertyAttribute>()?.Name;
         }
     }
 }

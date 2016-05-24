@@ -125,6 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachablePropertyTest.cs" />
     <Compile Include="ButtonContentLayoutTest.cs" />
     <Compile Include="ColorTest.cs" />
     <Compile Include="ContentPropertyTest.cs" />

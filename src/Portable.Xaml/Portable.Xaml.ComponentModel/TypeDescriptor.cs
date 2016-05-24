@@ -34,9 +34,7 @@ namespace Portable.Xaml.ComponentModel
 		};
 
         static readonly Dictionary<Type, Type> redirects = new Dictionary<Type, Type>();
-
         public static Func<object, Type> GetRedirect;
-        public static Func<XamlType, string> GetContentPropertyName;
 
         /// <summary>
         /// Add a type converter to the recognized list.
@@ -45,6 +43,7 @@ namespace Portable.Xaml.ComponentModel
         /// <param name="type"></param>
         /// <param name="converter"></param>
         /// <returns></returns>
+        [EnhancedXaml]
         public static bool Register(Type type, Type converter)
 	    {
             if (converters.ContainsKey(type)) return false;
@@ -58,6 +57,7 @@ namespace Portable.Xaml.ComponentModel
         /// <param name="xtc"></param>
         /// <param name="ptc"></param>
         /// <returns></returns>
+        [EnhancedXaml]
 	    public static bool Redirect(Type xtc, Type ptc)
 	    {
 	        if (redirects.ContainsKey(xtc)) return false;
@@ -70,6 +70,7 @@ namespace Portable.Xaml.ComponentModel
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+        [EnhancedXaml]
 	    public static TypeConverter GetConverter(object obj)
         {
             var tc = GetRedirect?.Invoke(obj);
@@ -77,16 +78,6 @@ namespace Portable.Xaml.ComponentModel
 
             return Activator.CreateInstance(tc) as TypeConverter;
         }
-
-        /// <summary>
-        /// Lookup a content property attribute
-        /// </summary>
-        /// <param name="xt"></param>
-        /// <returns></returns>
-	    public static string LookupContentProperty(XamlType xt)
-	    {
-	        return GetContentPropertyName?.Invoke(xt);
-	    }
 
 		/// <summary>
 		/// Gets the type converter for the specified type.

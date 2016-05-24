@@ -30,6 +30,7 @@ using Portable.Xaml.Markup;
 using Portable.Xaml.Schema;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
+using Portable.Xaml.Portable.Xaml;
 
 namespace Portable.Xaml
 {
@@ -144,6 +145,8 @@ namespace Portable.Xaml
 				throw new ArgumentNullException ("schemaContext");
 			SchemaContext = schemaContext;
 			this.invoker = invoker;
+
+
 		}
 
 		// populated properties
@@ -589,7 +592,9 @@ namespace Portable.Xaml
 
 		protected virtual IEnumerable<XamlMember> LookupAllMembers()
 		{
-			if (UnderlyingType == null)
+            var attachableMembers = LookupAllAttachableMembers();
+
+            if (UnderlyingType == null)
 				return BaseType?.GetAllMembers() ?? Enumerable.Empty<XamlMember>();
 
 			return DoLookupAllMembers().OrderBy(r => r, TypeExtensionMethods.GetMemberComparer(UnderlyingType));
@@ -710,7 +715,7 @@ namespace Portable.Xaml
 
 		protected virtual XamlMember LookupContentProperty ()
 		{
-		    var cpName = TypeDescriptor.LookupContentProperty(this);
+		    var cpName = EnhancedXamlMethods.LookupContentProperty(this);
 		    if (!string.IsNullOrWhiteSpace(cpName))
 		    {
 		        return GetMember(cpName);

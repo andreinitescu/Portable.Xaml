@@ -98,6 +98,7 @@
     <Compile Include="Portable.Xaml\AmbientPropertyValue.cs" />
     <Compile Include="Portable.Xaml\AttachableMemberIdentifier.cs" />
     <Compile Include="Portable.Xaml\AttachablePropertyServices.cs" />
+    <Compile Include="Portable.Xaml\EnhancedXamlMethods.cs" />
     <Compile Include="Portable.Xaml\IAmbientProvider.cs" />
     <Compile Include="Portable.Xaml\IAttachedPropertyStore.cs" />
     <Compile Include="Portable.Xaml\IDestinationTypeProvider.cs" />
