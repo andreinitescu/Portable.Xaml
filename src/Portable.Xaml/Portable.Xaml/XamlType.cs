@@ -524,7 +524,8 @@ namespace Portable.Xaml
 		{
 			if (UnderlyingType == null)
 				return BaseType != null ? BaseType.GetAllAttachableMembers() : Enumerable.Empty<XamlMember>();
-			return DoLookupAllAttachableMembers().OrderBy(r => r, TypeExtensionMethods.MemberComparer);
+
+            return DoLookupAllAttachableMembers().OrderBy(r => r, TypeExtensionMethods.GetMemberComparer(UnderlyingType));
 		}
 
 		IEnumerable<XamlMember> DoLookupAllAttachableMembers ()
@@ -590,7 +591,8 @@ namespace Portable.Xaml
 		{
 			if (UnderlyingType == null)
 				return BaseType?.GetAllMembers() ?? Enumerable.Empty<XamlMember>();
-			return DoLookupAllMembers().OrderBy(r => r, TypeExtensionMethods.MemberComparer);
+
+			return DoLookupAllMembers().OrderBy(r => r, TypeExtensionMethods.GetMemberComparer(UnderlyingType));
 		}
 
 		IEnumerable<XamlMember> DoLookupAllMembers ()

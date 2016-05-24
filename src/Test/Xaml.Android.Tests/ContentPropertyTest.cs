@@ -37,8 +37,6 @@ namespace Xaml.Android.Tests
             var stackNode = doc.Root.Elements().First();
             var labelNode = stackNode.Elements().First();
 
-            /*  Checking that the content property didnt force properties after it to 
-                write in element property syntax */
             Assert.IsTrue(stackNode.Attributes().Any(a => a.Name.LocalName == "WidthRequest"));
             Assert.IsTrue(labelNode.Attributes().Any(a => a.Name.LocalName == "WidthRequest"));
 

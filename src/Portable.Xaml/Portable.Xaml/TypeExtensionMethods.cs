@@ -32,100 +32,100 @@ using Portable.Xaml.Schema;
 
 namespace Portable.Xaml
 {
-	static class TypeExtensionMethods
-	{
-		#region inheritance search and custom attribute provision
+    static class TypeExtensionMethods
+    {
+        #region inheritance search and custom attribute provision
 
-		public static T GetCustomAttribute<T> (this ICustomAttributeProvider type, bool inherit) where T : Attribute
-		{
-			foreach (var a in type.GetCustomAttributes (typeof(T), inherit))
-				return (T)(object)a;
-			return null;
-		}
+        public static T GetCustomAttribute<T>(this ICustomAttributeProvider type, bool inherit) where T : Attribute
+        {
+            foreach (var a in type.GetCustomAttributes(typeof(T), inherit))
+                return (T)(object)a;
+            return null;
+        }
 
-		public static T GetCustomAttribute<T> (this XamlType type) where T : Attribute
-		{
-			if (type.UnderlyingType == null)
-				return null;
+        public static T GetCustomAttribute<T>(this XamlType type) where T : Attribute
+        {
+            if (type.UnderlyingType == null)
+                return null;
 
-			T ret = type.GetCustomAttributeProvider ().GetCustomAttribute<T> (true);
-			if (ret != null)
-				return ret;
-			if (type.BaseType != null)
-				return type.BaseType.GetCustomAttribute<T> ();
-			return null;
-		}
+            T ret = type.GetCustomAttributeProvider().GetCustomAttribute<T>(true);
+            if (ret != null)
+                return ret;
+            if (type.BaseType != null)
+                return type.BaseType.GetCustomAttribute<T>();
+            return null;
+        }
 
-		public static bool ImplementsAnyInterfacesOf (this Type type, params Type[] definitions)
-		{
-			return definitions.Any (t => ImplementsInterface (type, t));
-		}
+        public static bool ImplementsAnyInterfacesOf(this Type type, params Type[] definitions)
+        {
+            return definitions.Any(t => ImplementsInterface(type, t));
+        }
 
-		public static bool ImplementsInterface (this Type type, Type definition)
-		{
-			if (type == null)
-				throw new ArgumentNullException ("type");
-			if (definition == null)
-				throw new ArgumentNullException ("definition");
-			if (type == definition)
-				return true;
+        public static bool ImplementsInterface(this Type type, Type definition)
+        {
+            if (type == null)
+                throw new ArgumentNullException("type");
+            if (definition == null)
+                throw new ArgumentNullException("definition");
+            if (type == definition)
+                return true;
 
-			if (type.GetTypeInfo ().IsGenericType && type.GetGenericTypeDefinition () == definition)
-				return true;
+            if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == definition)
+                return true;
 
-			foreach (var iface in type.GetTypeInfo().GetInterfaces())
-				if (iface == definition || (iface.GetTypeInfo ().IsGenericType && iface.GetGenericTypeDefinition () == definition))
-					return true;
-			return false;
-		}
+            foreach (var iface in type.GetTypeInfo().GetInterfaces())
+                if (iface == definition || (iface.GetTypeInfo().IsGenericType && iface.GetGenericTypeDefinition() == definition))
+                    return true;
+            return false;
+        }
 
-		#endregion
+        #endregion
 
-		#region type conversion and member value retrieval
+        #region type conversion and member value retrieval
 
-		static readonly NullExtension null_value = new NullExtension ();
+        static readonly NullExtension null_value = new NullExtension();
 
-		public static object GetExtensionWrapped (object o)
-		{
-			// FIXME: should this manually checked, or is there any way to automate it?
-			// Also XamlSchemaContext might be involved but this method signature does not take it consideration.
-			if (o == null)
-				return null_value;
-			if (o is Array)
-				return new ArrayExtension ((Array)o);
-			if (o is Type)
-				return new TypeExtension ((Type)o);
-			return o;
-		}
+        public static object GetExtensionWrapped(object o)
+        {
+            // FIXME: should this manually checked, or is there any way to automate it?
+            // Also XamlSchemaContext might be involved but this method signature does not take it consideration.
+            if (o == null)
+                return null_value;
+            if (o is Array)
+                return new ArrayExtension((Array)o);
+            if (o is Type)
+                return new TypeExtension((Type)o);
+            return o;
+        }
 
-		public static string GetStringValue (XamlType xt, XamlMember xm, object obj, IValueSerializerContext vsctx)
-		{
-			if (obj == null)
-				return String.Empty;
-			if (obj is Type)
-				return new XamlTypeName (xt.SchemaContext.GetXamlType ((Type)obj)).ToString (vsctx != null ? vsctx.GetService (typeof(INamespacePrefixLookup)) as INamespacePrefixLookup : null);
+        public static string GetStringValue(XamlType xt, XamlMember xm, object obj, IValueSerializerContext vsctx)
+        {
+            if (obj == null)
+                return String.Empty;
+            if (obj is Type)
+                return new XamlTypeName(xt.SchemaContext.GetXamlType((Type)obj)).ToString(vsctx != null ? vsctx.GetService(typeof(INamespacePrefixLookup)) as INamespacePrefixLookup : null);
 
-			var vs = (xm != null ? xm.ValueSerializer : null) ?? xt.ValueSerializer;
-			if (vs != null)
-				return vs.ConverterInstance.ConvertToString (obj, vsctx);
+            var vs = (xm != null ? xm.ValueSerializer : null) ?? xt.ValueSerializer;
+            if (vs != null)
+                return vs.ConverterInstance.ConvertToString(obj, vsctx);
 
-			// FIXME: does this make sense?
-			var vc = xm?.TypeConverter ?? xt.TypeConverter;
-			var tc = vc?.ConverterInstance;
+            // FIXME: does this make sense?
+            var vc = xm?.TypeConverter ?? xt.TypeConverter;
+            var tc = vc?.ConverterInstance;
 
-            if (tc != null && tc.CanConvertTo (vsctx, typeof(string)))
-				return (string)tc.ConvertTo (vsctx, CultureInfo.InvariantCulture, obj, typeof(string));
-			if (obj is string || obj == null)
-				return (string)obj;
-			throw new InvalidCastException (String.Format ("Cannot cast object '{0}' to string", obj.GetType ()));
-		}
+            if (tc != null && tc.CanConvertTo(vsctx, typeof(string)))
+                return (string)tc.ConvertTo(vsctx, CultureInfo.InvariantCulture, obj, typeof(string));
+            if (obj is string || obj == null)
+                return (string)obj;
+            throw new InvalidCastException(String.Format("Cannot cast object '{0}' to string", obj.GetType()));
+        }
 
-		public static TypeConverter GetTypeConverter (this Type type)
-		{
-		    return TypeDescriptor.GetConverter(type);
-		}
+        public static TypeConverter GetTypeConverter(this Type type)
+        {
+            return TypeDescriptor.GetConverter(type);
+        }
 
-		/*
+        /*
 		// FIXME: I want this to cover all the existing types and make it valid in both NET_2_1 and !NET_2_1.
 		class ConvertibleTypeConverter<T> : TypeConverter
 		{
@@ -158,304 +158,343 @@ namespace Portable.Xaml
 		}
 		*/
 
-		#endregion
+        #endregion
 
-		public static bool IsContentValue (this XamlMember member, IValueSerializerContext vsctx)
-		{
-			if (member == XamlLanguage.Initialization)
-				return true;
-			if (member == XamlLanguage.PositionalParameters || member == XamlLanguage.Arguments)
-				return false; // it's up to the argument (no need to check them though, as IList<object> is not of value)
-			var typeConverter = member.TypeConverter;
-			if (typeConverter != null && typeConverter.ConverterInstance != null && typeConverter.ConverterInstance.CanConvertTo (vsctx, typeof(string)))
-				return true;
-			return IsContentValue (member.Type, vsctx);
-		}
+        public static bool IsContentValue(this XamlMember member, IValueSerializerContext vsctx)
+        {
+            if (member == XamlLanguage.Initialization)
+                return true;
+            if (member == XamlLanguage.PositionalParameters || member == XamlLanguage.Arguments)
+                return false; // it's up to the argument (no need to check them though, as IList<object> is not of value)
+            var typeConverter = member.TypeConverter;
+            if (typeConverter != null && typeConverter.ConverterInstance != null && typeConverter.ConverterInstance.CanConvertTo(vsctx, typeof(string)))
+                return true;
+            return IsContentValue(member.Type, vsctx);
+        }
 
-		public static bool IsContentValue (this XamlType type, IValueSerializerContext vsctx)
-		{
-			var typeConverter = type.TypeConverter;
-			if (typeConverter != null && typeConverter.ConverterInstance != null && typeConverter.ConverterInstance.CanConvertTo (vsctx, typeof(string)))
-				return true;
-			return false;
-		}
+        public static bool IsContentValue(this XamlType type, IValueSerializerContext vsctx)
+        {
+            var typeConverter = type.TypeConverter;
+            if (typeConverter != null && typeConverter.ConverterInstance != null && typeConverter.ConverterInstance.CanConvertTo(vsctx, typeof(string)))
+                return true;
+            return false;
+        }
 
-		public static bool ListEquals (this IList<XamlType> a1, IList<XamlType> a2)
-		{
-			if (a1 == null || a1.Count == 0)
-				return a2 == null || a2.Count == 0;
-			if (a2 == null || a2.Count == 0)
-				return false;
-			if (a1.Count != a2.Count)
-				return false;
-			for (int i = 0; i < a1.Count; i++)
-				if (a1 [i] != a2 [i])
-					return false;
-			return true;
-		}
+        public static bool ListEquals(this IList<XamlType> a1, IList<XamlType> a2)
+        {
+            if (a1 == null || a1.Count == 0)
+                return a2 == null || a2.Count == 0;
+            if (a2 == null || a2.Count == 0)
+                return false;
+            if (a1.Count != a2.Count)
+                return false;
+            for (int i = 0; i < a1.Count; i++)
+                if (a1[i] != a2[i])
+                    return false;
+            return true;
+        }
 
-		public static bool HasPositionalParameters (this XamlType type, IValueSerializerContext vsctx)
-		{
-			// FIXME: find out why only TypeExtension and StaticExtension yield this directive. Seealso XamlObjectReaderTest.Read_CustomMarkupExtension*()
-			return  type == XamlLanguage.Type ||
-			type == XamlLanguage.Static ||
-			(type.ConstructionRequiresArguments && ExaminePositionalParametersApplicable (type, vsctx));
-		}
+        public static bool HasPositionalParameters(this XamlType type, IValueSerializerContext vsctx)
+        {
+            // FIXME: find out why only TypeExtension and StaticExtension yield this directive. Seealso XamlObjectReaderTest.Read_CustomMarkupExtension*()
+            return type == XamlLanguage.Type ||
+            type == XamlLanguage.Static ||
+            (type.ConstructionRequiresArguments && ExaminePositionalParametersApplicable(type, vsctx));
+        }
 
-		static bool ExaminePositionalParametersApplicable (this XamlType type, IValueSerializerContext vsctx)
-		{
-			if (!type.IsMarkupExtension || type.UnderlyingType == null)
-				return false;
+        static bool ExaminePositionalParametersApplicable(this XamlType type, IValueSerializerContext vsctx)
+        {
+            if (!type.IsMarkupExtension || type.UnderlyingType == null)
+                return false;
 
-			var args = type.GetSortedConstructorArguments ();
-			if (args == null)
-				return false;
+            var args = type.GetSortedConstructorArguments();
+            if (args == null)
+                return false;
 
-			foreach (var arg in args)
-				if (arg.Type != null && !arg.Type.IsContentValue (vsctx))
-					return false;
+            foreach (var arg in args)
+                if (arg.Type != null && !arg.Type.IsContentValue(vsctx))
+                    return false;
 
-			Type[] argTypes = (from arg in args
-			                    select arg.Type.UnderlyingType).ToArray ();
-			if (argTypes.Any (at => at == null))
-				return false;
-			var ci = type.UnderlyingType
-				.GetTypeInfo ()
-				.GetConstructors ().FirstOrDefault (c => 
-					c.GetParameters ().Select (r => r.ParameterType).SequenceEqual (argTypes)
-			         );
-			return ci != null;
-		}
+            Type[] argTypes = (from arg in args
+                               select arg.Type.UnderlyingType).ToArray();
+            if (argTypes.Any(at => at == null))
+                return false;
+            var ci = type.UnderlyingType
+                .GetTypeInfo()
+                .GetConstructors().FirstOrDefault(c =>
+                  c.GetParameters().Select(r => r.ParameterType).SequenceEqual(argTypes)
+                     );
+            return ci != null;
+        }
 
-		public static IEnumerable<XamlWriterInternalBase.MemberAndValue> GetSortedConstructorArguments (this XamlType type, IList<XamlWriterInternalBase.MemberAndValue> members)
-		{
-			var constructors = type.UnderlyingType.GetTypeInfo ().GetConstructors ();
-			var preferredParameterCount = 0;
-			ConstructorInfo preferredConstructor = null;
-			foreach (var constructor in constructors)
-			{
-				var parameters = constructor.GetParameters();
-				var matchedParameterCount = 0;
-				bool mismatch = false;
-				for (int i = 0; i < parameters.Length; i++) {
-					var parameter = parameters[i];
-					var member = members.FirstOrDefault(r => r.Member.ConstructorArgumentName() == parameter.Name);
-					if (member == null) {
-						// allow parameters with a default value to be omitted
-						mismatch = !parameter.HasDefaultValue();
-						if (mismatch)
-							break;
-						continue;
-					}
-					var paramXamlType = type.SchemaContext.GetXamlType (parameter.ParameterType);
-
-					// check if type input type can be converted to the parameter type
-					mismatch = !paramXamlType.CanConvertFrom (member.Member.Type);
-					if (mismatch)
-						break;
-					matchedParameterCount++;
-				}
-				// prefer the constructor that accepts the most parameters
-				if (!mismatch && matchedParameterCount > preferredParameterCount)
-				{
-					preferredConstructor = constructor;
-					preferredParameterCount = matchedParameterCount;
-				}
-			}
-			if (preferredConstructor == null)
-				return null;
-			return preferredConstructor
-				.GetParameters ()
-				.Select (p => {
-					var mem = members.FirstOrDefault(r => r.Member.ConstructorArgumentName() == p.Name);
-					if (mem == null && p.HasDefaultValue())
-					{
-						mem = new XamlWriterInternalBase.MemberAndValue(type.SchemaContext.GetParameter(p));
-						mem.Value = p.DefaultValue;
-					}
-					return mem;
-				});
-		}
-
-
-		public static IEnumerable<XamlMember> GetSortedConstructorArguments(this XamlType type, IList<object> contents = null)
-		{
-			var constructors = type.UnderlyingType.GetTypeInfo().GetConstructors();
-			if (contents != null && contents.Count > 0)
-			{
-				// find constructor based on supplied parameters
-				foreach (var constructor in constructors)
-				{
-					var parameters = constructor.GetParameters();
-					if (contents.Count > parameters.Length)
-						continue;
-
-					bool mismatch = false;
-					for (int i = 0; i < parameters.Length; i++)
-					{
-						var parameter = parameters[i];
-						if (i >= contents.Count)
-						{
-							// allow parameters with a default value to be omitted
-							mismatch = !parameter.HasDefaultValue();
-							if (mismatch)
-								break;
-							continue;
-						}
-						// check if the parameter value can be assigned to the required type
-						var posParameter = contents[i];
-						var paramXamlType = type.SchemaContext.GetXamlType(parameter.ParameterType);
-
-						// check if type input type can be converted to the parameter type
-						var inputType = posParameter == null ? XamlLanguage.Null : type.SchemaContext.GetXamlType(posParameter.GetType());
-						mismatch = !paramXamlType.CanConvertFrom(inputType);
-						if (mismatch)
-							break;
-					}
-					if (mismatch)
-						continue;
-
-					// matches constructor arguments
-					return constructor
-						.GetParameters()
-						.Select(p => type.SchemaContext.GetParameter(p));
-				}
-			}
-
-			// find constructor based on ConstructorArgumentAttribute
-			var args = type.GetConstructorArguments();
-			foreach (var ci in constructors)
-			{
-				var pis = ci.GetParameters();
-				if (args.Count != pis.Length)
-					continue;
-				bool mismatch = false;
-				foreach (var pi in pis)
-					for (int i = 0; i < args.Count; i++)
-						mismatch |= args.All(a => a.ConstructorArgumentName() != pi.Name);
-				if (mismatch)
-					continue;
-				return args.OrderBy(c => pis.FindParameterWithName(c.ConstructorArgumentName()).Position);
-			}
-
-			return null;
-		}
-
-		static ParameterInfo FindParameterWithName (this IEnumerable<ParameterInfo> pis, string name)
-		{
-			return pis.FirstOrDefault (pi => pi.Name == name);
-		}
-
-		public static string ConstructorArgumentName (this XamlMember xm)
-		{
-			var caa = xm.GetCustomAttributeProvider ().GetCustomAttribute<ConstructorArgumentAttribute> (false);
-			return caa.ArgumentName;
-		}
-
-    class InternalMemberComparer : IComparer<XamlMember>
-    {
-      public int Compare(XamlMember x, XamlMember y)
-      {
-        return CompareMembers(x, y);
-      }
-    }
-
-    internal static IComparer<XamlMember> MemberComparer = new InternalMemberComparer();
-
-    internal static int CompareMembers (XamlMember m1, XamlMember m2)
-		{
-			if (m1 == null)
-				return m2 == null ? 0 : 1;
-			if (m2 == null)
-				return 0;
-
-			// these come before non-content properties
-
-			// 1. PositionalParameters comes first
-			if (m1 == XamlLanguage.PositionalParameters)
-				return m2 == XamlLanguage.PositionalParameters ? 0 : -1;
-			else if (m2 == XamlLanguage.PositionalParameters)
-				return 1;
-
-			// 2. constructor arguments
-			if (m1.IsConstructorArgument) {
-				if (!m2.IsConstructorArgument)
-					return -1;
-			}
-			else if (m2.IsConstructorArgument)
-				return 1;
-
-
-			// these come AFTER non-content properties
-
-			// 1. initialization
-
-			if (m1 == XamlLanguage.Initialization)
-				return m2 == XamlLanguage.Initialization ? 0 : 1;
-			else if (m2 == XamlLanguage.Initialization)
-				return -1;
-
-			// 2. key
-			if (m1 == XamlLanguage.Key)
-				return m2 == XamlLanguage.Key ? 0 : 1;
-			else if (m2 == XamlLanguage.Key)
-				return -1;
-
-			// 3. Name
-			if (m1 == XamlLanguage.Name)
-				return m2 == XamlLanguage.Name ? 0 : 1;
-			else if (m2 == XamlLanguage.Name)
-				return -1;
-
-            // 4. ContentProperty is always returned last
-
-            if (m1.DeclaringType != null && m1.DeclaringType.ContentProperty == m1)
+        public static IEnumerable<XamlWriterInternalBase.MemberAndValue> GetSortedConstructorArguments(this XamlType type, IList<XamlWriterInternalBase.MemberAndValue> members)
+        {
+            var constructors = type.UnderlyingType.GetTypeInfo().GetConstructors();
+            var preferredParameterCount = 0;
+            ConstructorInfo preferredConstructor = null;
+            foreach (var constructor in constructors)
             {
-                if (!(m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2))
-                    return 1;
+                var parameters = constructor.GetParameters();
+                var matchedParameterCount = 0;
+                bool mismatch = false;
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    var parameter = parameters[i];
+                    var member = members.FirstOrDefault(r => r.Member.ConstructorArgumentName() == parameter.Name);
+                    if (member == null)
+                    {
+                        // allow parameters with a default value to be omitted
+                        mismatch = !parameter.HasDefaultValue();
+                        if (mismatch)
+                            break;
+                        continue;
+                    }
+                    var paramXamlType = type.SchemaContext.GetXamlType(parameter.ParameterType);
+
+                    // check if type input type can be converted to the parameter type
+                    mismatch = !paramXamlType.CanConvertFrom(member.Member.Type);
+                    if (mismatch)
+                        break;
+                    matchedParameterCount++;
+                }
+                // prefer the constructor that accepts the most parameters
+                if (!mismatch && matchedParameterCount > preferredParameterCount)
+                {
+                    preferredConstructor = constructor;
+                    preferredParameterCount = matchedParameterCount;
+                }
             }
-            else if (m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2)
+            if (preferredConstructor == null)
+                return null;
+            return preferredConstructor
+                .GetParameters()
+                .Select(p =>
+                {
+                    var mem = members.FirstOrDefault(r => r.Member.ConstructorArgumentName() == p.Name);
+                    if (mem == null && p.HasDefaultValue())
+                    {
+                        mem = new XamlWriterInternalBase.MemberAndValue(type.SchemaContext.GetParameter(p));
+                        mem.Value = p.DefaultValue;
+                    }
+                    return mem;
+                });
+        }
+
+
+        public static IEnumerable<XamlMember> GetSortedConstructorArguments(this XamlType type, IList<object> contents = null)
+        {
+            var constructors = type.UnderlyingType.GetTypeInfo().GetConstructors();
+            if (contents != null && contents.Count > 0)
+            {
+                // find constructor based on supplied parameters
+                foreach (var constructor in constructors)
+                {
+                    var parameters = constructor.GetParameters();
+                    if (contents.Count > parameters.Length)
+                        continue;
+
+                    bool mismatch = false;
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        var parameter = parameters[i];
+                        if (i >= contents.Count)
+                        {
+                            // allow parameters with a default value to be omitted
+                            mismatch = !parameter.HasDefaultValue();
+                            if (mismatch)
+                                break;
+                            continue;
+                        }
+                        // check if the parameter value can be assigned to the required type
+                        var posParameter = contents[i];
+                        var paramXamlType = type.SchemaContext.GetXamlType(parameter.ParameterType);
+
+                        // check if type input type can be converted to the parameter type
+                        var inputType = posParameter == null ? XamlLanguage.Null : type.SchemaContext.GetXamlType(posParameter.GetType());
+                        mismatch = !paramXamlType.CanConvertFrom(inputType);
+                        if (mismatch)
+                            break;
+                    }
+                    if (mismatch)
+                        continue;
+
+                    // matches constructor arguments
+                    return constructor
+                        .GetParameters()
+                        .Select(p => type.SchemaContext.GetParameter(p));
+                }
+            }
+
+            // find constructor based on ConstructorArgumentAttribute
+            var args = type.GetConstructorArguments();
+            foreach (var ci in constructors)
+            {
+                var pis = ci.GetParameters();
+                if (args.Count != pis.Length)
+                    continue;
+                bool mismatch = false;
+                foreach (var pi in pis)
+                    for (int i = 0; i < args.Count; i++)
+                        mismatch |= args.All(a => a.ConstructorArgumentName() != pi.Name);
+                if (mismatch)
+                    continue;
+                return args.OrderBy(c => pis.FindParameterWithName(c.ConstructorArgumentName()).Position);
+            }
+
+            return null;
+        }
+
+        static ParameterInfo FindParameterWithName(this IEnumerable<ParameterInfo> pis, string name)
+        {
+            return pis.FirstOrDefault(pi => pi.Name == name);
+        }
+
+        public static string ConstructorArgumentName(this XamlMember xm)
+        {
+            var caa = xm.GetCustomAttributeProvider().GetCustomAttribute<ConstructorArgumentAttribute>(false);
+            return caa.ArgumentName;
+        }
+
+        class InternalMemberComparer : IComparer<XamlMember>
+        {
+            private Type ParentType { get; set; }
+
+            public InternalMemberComparer(Type parentType)
+            {
+                ParentType = parentType;
+            }
+
+            public int Compare(XamlMember x, XamlMember y)
+            {
+                return CompareMembers(ParentType, x, y);
+            }
+        }
+
+        internal static IComparer<XamlMember> GetMemberComparer(Type parentType)
+        {
+            return new InternalMemberComparer(parentType);
+        }
+
+        internal static int CompareMembers(Type parentType, XamlMember m1, XamlMember m2)
+        {
+            if (m1 == null)
+                return m2 == null ? 0 : 1;
+            if (m2 == null)
+                return 0;
+
+            var xParent = new XamlType(parentType, m1.Type.SchemaContext);
+
+            // these come before non-content properties
+
+            // 1. PositionalParameters comes first
+            if (m1 == XamlLanguage.PositionalParameters)
+                return m2 == XamlLanguage.PositionalParameters ? 0 : -1;
+            else if (m2 == XamlLanguage.PositionalParameters)
+                return 1;
+
+            // 2. constructor arguments
+            if (m1.IsConstructorArgument)
+            {
+                if (!m2.IsConstructorArgument)
+                    return -1;
+            }
+            else if (m2.IsConstructorArgument)
+                return 1;
+
+
+            // these come AFTER non-content properties
+
+            // 1. initialization
+
+            if (m1 == XamlLanguage.Initialization)
+                return m2 == XamlLanguage.Initialization ? 0 : 1;
+            else if (m2 == XamlLanguage.Initialization)
                 return -1;
 
+            // 2. key
+            if (m1 == XamlLanguage.Key)
+                return m2 == XamlLanguage.Key ? 0 : 1;
+            else if (m2 == XamlLanguage.Key)
+                return -1;
 
-            var cp1 = m1.DeclaringType?.ContentProperty;
-            var cp2 = m2.DeclaringType?.ContentProperty;
+            // 3. Name
+            if (m1 == XamlLanguage.Name)
+                return m2 == XamlLanguage.Name ? 0 : 1;
+            else if (m2 == XamlLanguage.Name)
+                return -1;
 
-            if (cp1 != null && cp1 == cp2) return 0;
+            // 4. ContentProperty is always returned last
+            var cp = xParent.ContentProperty;
 
-            if (m1.DeclaringType?.Name == cp1?.DeclaringType.Name && m1.Name == cp1?.Name)
+            if (cp != null && m1 == m2)
+                return 0;
+
+            if (cp != null && cp == m1)
             {
-                if (!(m2.DeclaringType?.Name == cp2?.DeclaringType.Name && m2.Name == cp2?.Name))
+                if (cp != m2)
+                {
+                    return 1;
+                }
+            }
+            else if (cp != null && cp == m2)
+            {
+                return -1;
+            }
+
+            if (m1.Name == cp?.Name)
+            {
+                if (m2.Name != cp?.Name)
                 {
                     return 1;
                 }
             }
 
-            if (m1.DeclaringType != null && m1.DeclaringType.ContentProperty == m1)
+            if (cp != null && cp == m1)
             {
-                if (!(m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2))
+                if (cp != m2)
                     return 1;
             }
-            else if (m2.DeclaringType != null && m2.DeclaringType.ContentProperty == m2)
+            else if (cp != null && cp == m2)
             {
                 return -1;
             }
 
-            if (m2.DeclaringType?.Name == cp2?.DeclaringType.Name && m2.Name == cp2?.Name)
+            if (m2.Name == cp?.Name)
             {
                 return -1;
             }
 
-            // then, compare names.
-            return String.CompareOrdinal (m1.Name, m2.Name);
-		}
+            // push collections to the bottom
+            if (m1.Type.IsCollection && !m2.Type.IsCollection)
+            {
+                return 1;
+            }
 
-		internal static string GetInternalXmlName (this XamlMember xm)
-		{
-			return xm.IsAttachable ? String.Concat (xm.DeclaringType.GetInternalXmlName (), ".", xm.Name) : xm.Name;
-		}
+            if (!m1.Type.IsCollection && m2.Type.IsCollection)
+            {
+                return -1;
+            }
 
-		#if DOTNET
+            if (m1.Type.IsNullable && !m2.Type.IsNullable)
+            {
+                return 1;
+            }
+
+            if (!m1.Type.IsNullable && m2.Type.IsNullable)
+            {
+                return -1;
+            }
+
+            // compare names?
+            return String.CompareOrdinal(m1.Name, m2.Name);
+        }
+
+        internal static string GetInternalXmlName(this XamlMember xm)
+        {
+            return xm.IsAttachable ? String.Concat(xm.DeclaringType.GetInternalXmlName(), ".", xm.Name) : xm.Name;
+        }
+
+#if DOTNET
 		internal static ICustomAttributeProvider GetCustomAttributeProvider (this XamlType type)
 		{
 			return type.UnderlyingType;
@@ -466,5 +505,5 @@ namespace Portable.Xaml
 			return member.UnderlyingMember;
 		}
 #endif
-	}
+    }
 }

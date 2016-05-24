@@ -400,7 +400,7 @@ namespace Portable.Xaml
 
 					// group the members then sort to put the key nodes in the correct order
 					var grouped = GroupMemberNodes (nodes1.Concat (nodes2))
-            .OrderBy (r => r.Item1, TypeExtensionMethods.MemberComparer);
+            .OrderBy (r => r.Item1, TypeExtensionMethods.GetMemberComparer(xobj.Type.UnderlyingType));
 					foreach (var item in grouped) {
 						foreach (var node in item.Item2)
 							yield return node;
