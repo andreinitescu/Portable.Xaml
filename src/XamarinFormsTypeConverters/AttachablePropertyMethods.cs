@@ -38,6 +38,7 @@ namespace XamarinFormsTypeConverters
 
                     var api = new EnhancedAttachableProperty
                     {
+                        ShortName = shortName,
                         PropertyName = dp.Name,
                         XamlPropertyName = $"{typeName}.{shortName}",
                         Value = getMethod.Invoke(null, new object[] { obj }),

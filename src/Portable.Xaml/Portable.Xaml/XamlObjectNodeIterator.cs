@@ -34,6 +34,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Portable.Xaml.Portable.Xaml;
 
 namespace Portable.Xaml
 {
@@ -323,11 +324,18 @@ namespace Portable.Xaml
 				yield return new XamlNodeMember (xobj, XamlLanguage.PositionalParameters);
 			else {
 				var inst = xobj.GetRawValue ();
-                var atts = new KeyValuePair<AttachableMemberIdentifier,object> [AttachablePropertyServices.GetAttachedPropertyCount (inst)];
-                
+			    var eaps = EnhancedXamlMethods.GetAttachableProperties(inst) ?? new EnhancedAttachableProperty[0];
 
+			    foreach (var eap in eaps)
+			    {
+			        var id = new AttachableMemberIdentifier(inst.GetType(), eap.ShortName);
+			        AttachablePropertyServices.SetProperty(eap.Target, id, eap.Value);
+			    }
+
+                var atts = new KeyValuePair<AttachableMemberIdentifier,object> [AttachablePropertyServices.GetAttachedPropertyCount (inst)];
                 AttachablePropertyServices.CopyPropertiesTo (inst, atts, 0);
-				foreach (var p in atts) {
+
+                foreach (var p in atts) {
 					var axt = ctx.GetXamlType (p.Key.DeclaringType);
 					yield return new XamlNodeMember (new XamlObject (axt, p.Value), axt.GetAttachableMember (p.Key.MemberName));
 				}
@@ -339,8 +347,14 @@ namespace Portable.Xaml
 		IEnumerable<XamlNodeInfo> GetObjectMemberNodes (XamlObject xobj)
 		{
 			var xce = GetNodeMembers (xobj, value_serializer_ctx).GetEnumerator ();
-			while (xce.MoveNext ()) {
-				// XamlLanguage.Items does not show up if the content is empty.
+		    var xxx = GetNodeMembers(xobj, value_serializer_ctx).ToList();
+		    XamlNodeMember c;
+
+			while (xce.MoveNext ())
+			{
+			    c = xce.Current;
+				
+                // XamlLanguage.Items does not show up if the content is empty.
 				if (xce.Current.Member == XamlLanguage.Items) {
 					// FIXME: this is nasty, but this name resolution is the only side effect of this iteration model. Save-Restore procedure is required.
 					NameResolver.Save ();

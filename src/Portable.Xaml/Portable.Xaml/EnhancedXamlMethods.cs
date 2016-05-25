@@ -24,7 +24,7 @@ namespace Portable.Xaml.Portable.Xaml
         /// <returns></returns>
         internal static EnhancedAttachableProperty[] LookupEnhancedAttachableProperties(object obj)
         {
-            return GetAttachableProperties?.Invoke(obj);
+            return obj == null ? null : GetAttachableProperties?.Invoke(obj);
         }
     }
 }
