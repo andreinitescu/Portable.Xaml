@@ -58,10 +58,22 @@ namespace XamarinFormsTypeConverters
 
             EnhancedXamlMethods.GetContentPropertyName = t => t?.GetCustomAttribute<ContentPropertyAttribute>()?.Name;
 
-            EnhancedXamlMethods.GetAttachableProperties = o =>
+            EnhancedXamlMethods.GetAttachedProperties = o =>
             {
-                var bo = o as BindableObject;
-                return bo == null ? null : AttachablePropertyMethods.GetAttachableProperties(bo);
+                var e = o as Element;
+                if (e == null) return null;
+
+                var parents = XamarinFormsHelper.GetParents(e);
+                if (parents == null || parents.Length == 0) return null;
+
+                var result = new List<EnhancedAttachedProperty>();
+
+                foreach (var parent in parents)
+                {
+                    result.AddRange(XamarinFormsHelper.GetAttachableProperties(parent));
+                }
+
+                return result.ToArray();
             };
         }
     }

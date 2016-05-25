@@ -5,7 +5,7 @@ namespace Portable.Xaml.Portable.Xaml
     public class EnhancedXamlMethods
     {
         public static Func<XamlType, string> GetContentPropertyName;
-        public static Func<object, EnhancedAttachableProperty[]> GetAttachableProperties;
+        public static Func<object, EnhancedAttachedProperty[]> GetAttachedProperties;
 
         /// <summary>
         /// Lookup the type's content property name.
@@ -18,13 +18,13 @@ namespace Portable.Xaml.Portable.Xaml
         }
 
         /// <summary>
-        /// Lookup the attachable properties for the <paramref name="obj"/>
+        /// Lookup the attached properties for the <paramref name="obj"/>
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        internal static EnhancedAttachableProperty[] LookupEnhancedAttachableProperties(object obj)
+        internal static EnhancedAttachedProperty[] LookupEnhancedAttachedProperties(object obj)
         {
-            return obj == null ? null : GetAttachableProperties?.Invoke(obj);
+            return obj == null ? null : GetAttachedProperties?.Invoke(obj);
         }
     }
 }

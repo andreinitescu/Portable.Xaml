@@ -38,7 +38,6 @@
   <ItemGroup>
     <Compile Include="ButtonContentTypeConverter.cs" />
     <Compile Include="ColorTypeConverter.cs" />
-    <Compile Include="AttachablePropertyMethods.cs" />
     <Compile Include="FileImageSourceConverter.cs" />
     <Compile Include="FontSizeConverter.cs" />
     <Compile Include="FontTypeConverter.cs" />
@@ -54,6 +53,7 @@
     <Compile Include="ThicknessTypeConverter.cs" />
     <Compile Include="UriTypeConverter.cs" />
     <Compile Include="WebViewSourceTypeConverter.cs" />
+    <Compile Include="XamarinFormsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">

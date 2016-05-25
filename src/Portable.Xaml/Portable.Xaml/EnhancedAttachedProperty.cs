@@ -2,7 +2,7 @@
 
 namespace Portable.Xaml.Portable.Xaml
 {
-    public class EnhancedAttachableProperty
+    public class EnhancedAttachedProperty
     {
         public object Target { get; set; }
         public object Value { get; set; }

@@ -14,7 +14,7 @@ namespace Xaml.Android.Tests
         }
 
         [Test]
-        public void Font_should_be_empty_string()
+        public void Should_write_attached_value_properties()
         {
             var writer = new TestXamlWriter();
 
@@ -36,9 +36,9 @@ namespace Xaml.Android.Tests
             Grid.SetRow(frame1, 0);
             Grid.SetColumn(frame1, 0);
 
-            var frame2 = new Frame();
-            Grid.SetRow(frame2, 1);
-            Grid.SetColumn(frame2, 1);
+            var frame2 = new Frame {Content = new Label()};
+            Grid.SetRow(frame2, 5);
+            Grid.SetColumn(frame2, 5);
 
             grid.Children.Add(frame1);
             grid.Children.Add(frame2);

@@ -7,11 +7,30 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public static class AttachablePropertyMethods
+    public class XamarinFormsHelper
     {
-        public static EnhancedAttachableProperty[] GetAttachableProperties(BindableObject obj)
+        public static Element[] GetParents(Element o)
         {
-            var result = new List<EnhancedAttachableProperty>();
+            var parents = new List<Element>();
+            var current = o;
+
+            while (current != null)
+            {
+                if (current.Parent != null)
+                {
+                    parents.Add(current.Parent);
+                }
+
+                current = current.Parent;
+            }
+
+            return parents.ToArray();
+        }
+
+
+        public static EnhancedAttachedProperty[] GetAttachableProperties(BindableObject obj)
+        {
+            var result = new List<EnhancedAttachedProperty>();
 
             var dps = obj
                 .GetType()
@@ -36,7 +55,7 @@ namespace XamarinFormsTypeConverters
                 {
                     var typeName = ReflectionMethods.GetShortTypeName(obj.GetType().FullName);
 
-                    var api = new EnhancedAttachableProperty
+                    var api = new EnhancedAttachedProperty
                     {
                         ShortName = shortName,
                         PropertyName = dp.Name,
