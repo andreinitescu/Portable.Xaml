@@ -11,7 +11,7 @@ namespace Xaml.Android.Tests
         [SetUp]
         public void BeforeTest()
         {
-            TypeConverterRegistrar.Initialize();
+            EnhancedXamlConfiguration.Initialize();
         }
 
         [Test]

@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="ButtonContentTypeConverter.cs" />
     <Compile Include="ColorTypeConverter.cs" />
+    <Compile Include="AttachablePropertyMethods.cs" />
     <Compile Include="FileImageSourceConverter.cs" />
     <Compile Include="FontSizeConverter.cs" />
     <Compile Include="FontTypeConverter.cs" />
@@ -49,7 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleTypeConverter.cs" />
     <Compile Include="ReflectionMethods.cs" />
-    <Compile Include="TypeConverterRegistrar.cs" />
+    <Compile Include="EnhancedXamlConfiguration.cs" />
     <Compile Include="ThicknessTypeConverter.cs" />
     <Compile Include="UriTypeConverter.cs" />
     <Compile Include="WebViewSourceTypeConverter.cs" />

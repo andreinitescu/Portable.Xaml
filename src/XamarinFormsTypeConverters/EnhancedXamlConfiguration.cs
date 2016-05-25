@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace XamarinFormsTypeConverters
 {
-    public static class TypeConverterRegistrar
+    public static class EnhancedXamlConfiguration
     {
         private static readonly Dictionary<Type, Type> Redirects = new Dictionary<Type, Type>
         {
@@ -57,6 +57,12 @@ namespace XamarinFormsTypeConverters
             };
 
             EnhancedXamlMethods.GetContentPropertyName = t => t?.GetCustomAttribute<ContentPropertyAttribute>()?.Name;
+
+            EnhancedXamlMethods.GetAttachableProperties = o =>
+            {
+                var bo = o as BindableObject;
+                return bo == null ? null : AttachablePropertyMethods.GetAttachableProperties(bo);
+            };
         }
     }
 }

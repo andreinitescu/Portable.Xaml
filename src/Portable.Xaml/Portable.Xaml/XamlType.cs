@@ -592,8 +592,6 @@ namespace Portable.Xaml
 
 		protected virtual IEnumerable<XamlMember> LookupAllMembers()
 		{
-            var attachableMembers = LookupAllAttachableMembers();
-
             if (UnderlyingType == null)
 				return BaseType?.GetAllMembers() ?? Enumerable.Empty<XamlMember>();
 

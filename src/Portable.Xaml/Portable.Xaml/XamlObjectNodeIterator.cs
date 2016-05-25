@@ -323,8 +323,10 @@ namespace Portable.Xaml
 				yield return new XamlNodeMember (xobj, XamlLanguage.PositionalParameters);
 			else {
 				var inst = xobj.GetRawValue ();
-				var atts = new KeyValuePair<AttachableMemberIdentifier,object> [AttachablePropertyServices.GetAttachedPropertyCount (inst)];
-				AttachablePropertyServices.CopyPropertiesTo (inst, atts, 0);
+                var atts = new KeyValuePair<AttachableMemberIdentifier,object> [AttachablePropertyServices.GetAttachedPropertyCount (inst)];
+                
+
+                AttachablePropertyServices.CopyPropertiesTo (inst, atts, 0);
 				foreach (var p in atts) {
 					var axt = ctx.GetXamlType (p.Key.DeclaringType);
 					yield return new XamlNodeMember (new XamlObject (axt, p.Value), axt.GetAttachableMember (p.Key.MemberName));
