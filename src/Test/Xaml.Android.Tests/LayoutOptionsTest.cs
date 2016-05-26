@@ -25,7 +25,7 @@ namespace Xaml.Android.Tests
 
             var xaml = writer.Save(label);
 
-            XamlAssert.AreEqual(xaml, "VerticalOptions", "EndAndExpand");
+            TestHelpers.AreEqual(xaml, "VerticalOptions", "EndAndExpand");
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace Xaml.Android.Tests
             var label = new Label();
             var xaml = writer.Save(label);
 
-            XamlAssert.AreEqual(xaml, "VerticalOptions", "Fill");
+            TestHelpers.AreEqual(xaml, "VerticalOptions", "Fill");
         }
 
 
@@ -52,7 +52,7 @@ namespace Xaml.Android.Tests
 
             var xaml = writer.Save(label);
 
-            XamlAssert.AreEqual(xaml, "VerticalOptions", "Center");
+            TestHelpers.AreEqual(xaml, "VerticalOptions", "Center");
         }
     }
 }

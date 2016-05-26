@@ -26,7 +26,7 @@ namespace Xaml.Android.Tests
 
             var xaml = writer.Save(page);
 
-            XamlAssert.AreEqual(xaml, "Source", url);
+            TestHelpers.AreEqual(xaml, "Source", url);
         }
     }
 }

@@ -33,12 +33,12 @@ namespace Xaml.Android.Tests
             };
 
             var frame1 = new Frame();
-            Grid.SetRow(frame1, 0);
-            Grid.SetColumn(frame1, 0);
+            Grid.SetRow(frame1, 1);
+            Grid.SetColumn(frame1, 2);
 
             var frame2 = new Frame {Content = new Label()};
-            Grid.SetRow(frame2, 5);
-            Grid.SetColumn(frame2, 5);
+            Grid.SetRow(frame2, 3);
+            Grid.SetColumn(frame2, 4);
 
             grid.Children.Add(frame1);
             grid.Children.Add(frame2);
@@ -49,6 +49,16 @@ namespace Xaml.Android.Tests
             };
 
             var xaml = writer.Save(page);
+            var fs = TestHelpers.Get(xaml, "//a:ContentPage/a:Grid/a:Frame");
+
+            Assert.AreEqual("1", fs[0].Attributes["Grid.Row"].Value);
+            Assert.AreEqual("2", fs[0].Attributes["Grid.Column"].Value);
+
+            Assert.AreEqual("3", fs[1].Attributes["Grid.Row"].Value);
+            Assert.AreEqual("4", fs[1].Attributes["Grid.Column"].Value);
+
+            var ls = TestHelpers.Get(xaml, "//a:ContentPage/a:Grid/a:Frame/a:Frame.Content/a:Label");
+            Assert.IsNull(ls[0].Attributes["Grid.Row"]);
         }
     }
 }

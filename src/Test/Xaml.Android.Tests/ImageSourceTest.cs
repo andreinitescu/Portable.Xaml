@@ -21,7 +21,7 @@ namespace Xaml.Android.Tests
             var img = new Image();
             var xaml = writer.Save(img);
 
-            XamlAssert.AreEqual(xaml, "Source", "{x:Null}");
+            TestHelpers.AreEqual(xaml, "Source", "{x:Null}");
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Xaml.Android.Tests
             var img = new Image {Source = ImageSource.FromFile(file) };
             var xaml = writer.Save(img);
 
-            XamlAssert.AreEqual(xaml, "Source", file);
+            TestHelpers.AreEqual(xaml, "Source", file);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Xaml.Android.Tests
             var img = new Image { Source = ImageSource.FromUri(new Uri(url)) };
             var xaml = writer.Save(img);
 
-            XamlAssert.AreEqual(xaml, "Source", url);
+            TestHelpers.AreEqual(xaml, "Source", url);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Xaml.Android.Tests
             };
 
             var xaml = writer.Save(btn);
-            XamlAssert.AreEqual(xaml, "Image", "test.png");
+            TestHelpers.AreEqual(xaml, "Image", "test.png");
         }
     }
 }

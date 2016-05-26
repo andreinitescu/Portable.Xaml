@@ -23,7 +23,7 @@ namespace Xaml.Android.Tests
             };
 
             var xaml = writer.Save(page);
-            XamlAssert.AreEqual(xaml, "Padding", "5,10,15,20");
+            TestHelpers.AreEqual(xaml, "Padding", "5,10,15,20");
         }
     }
 }

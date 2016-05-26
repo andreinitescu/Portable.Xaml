@@ -63,17 +63,11 @@ namespace XamarinFormsTypeConverters
                 var e = o as Element;
                 if (e == null) return null;
 
-                var parents = XamarinFormsHelper.GetParents(e);
-                if (parents == null || parents.Length == 0) return null;
+                var parent = XamarinFormsHelper.GetParent(e);
 
-                var result = new List<EnhancedAttachedProperty>();
-
-                foreach (var parent in parents)
-                {
-                    result.AddRange(XamarinFormsHelper.GetAttachableProperties(parent));
-                }
-
-                return result.ToArray();
+                return parent == null 
+                    ? null 
+                    : XamarinFormsHelper.GetAttachableProperties(parent);
             };
         }
     }

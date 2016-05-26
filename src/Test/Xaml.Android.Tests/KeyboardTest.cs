@@ -20,7 +20,7 @@ namespace Xaml.Android.Tests
             var entry = new Entry();
             
             var xaml = writer.Save(entry);
-            XamlAssert.AreEqual(xaml, "Keyboard", "Default");
+            TestHelpers.AreEqual(xaml, "Keyboard", "Default");
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace Xaml.Android.Tests
             };
 
             var xaml = writer.Save(entry);
-            XamlAssert.AreEqual(xaml, "Keyboard", "Chat");
+            TestHelpers.AreEqual(xaml, "Keyboard", "Chat");
         }
     }
 }

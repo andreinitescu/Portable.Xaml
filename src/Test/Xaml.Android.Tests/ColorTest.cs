@@ -21,7 +21,7 @@ namespace Xaml.Android.Tests
             var page = new ContentPage { BackgroundColor = Color.Red };
             var xaml = writer.Save(page);
 
-            XamlAssert.AreEqual(xaml, "BackgroundColor", "#FF0000");
+            TestHelpers.AreEqual(xaml, "BackgroundColor", "#FF0000");
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Xaml.Android.Tests
             var page = new ContentPage { BackgroundColor = Color.Blue };
             var xaml = writer.Save(page);
 
-            XamlAssert.AreEqual(xaml, "BackgroundColor", "#0000FF");
+            TestHelpers.AreEqual(xaml, "BackgroundColor", "#0000FF");
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace Xaml.Android.Tests
             var page = new ContentPage {BackgroundColor = color};
             var xaml = writer.Save(page);
 
-            XamlAssert.AreEqual(xaml, "BackgroundColor", hex);
+            TestHelpers.AreEqual(xaml, "BackgroundColor", hex);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Xaml.Android.Tests
             };
 
             var xaml = writer.Save(view);
-            XamlAssert.AreEqual(xaml, "TestProp", "5.5, 10.1, 15, 20");
+            TestHelpers.AreEqual(xaml, "TestProp", "5.5, 10.1, 15, 20");
         }
     }
 }

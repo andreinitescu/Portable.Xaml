@@ -20,7 +20,7 @@ namespace Xaml.Android.Tests
             var label = new Label();
             var xaml = writer.Save(label);
 
-            XamlAssert.AreEqual(xaml, "Font", "", "&quot;&quot?");
+            TestHelpers.AreEqual(xaml, "Font", "", "&quot;&quot?");
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace Xaml.Android.Tests
             };
 
             var xaml = writer.Save(label);
-            XamlAssert.AreEqual(xaml, "Font", "Droid Sans Mono, None, 24");
+            TestHelpers.AreEqual(xaml, "Font", "Droid Sans Mono, None, 24");
         }
 
 
@@ -50,8 +50,8 @@ namespace Xaml.Android.Tests
 
             var xaml = writer.Save(label);
 
-            XamlAssert.AreEqual(xaml, "FontSize", "18", "Font Size");
-            XamlAssert.AreEqual(xaml, "FontAttributes", "Bold", "Attributes");
+            TestHelpers.AreEqual(xaml, "FontSize", "18", "Font Size");
+            TestHelpers.AreEqual(xaml, "FontAttributes", "Bold", "Attributes");
         }
     }
 }

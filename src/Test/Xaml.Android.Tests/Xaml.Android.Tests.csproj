@@ -145,7 +145,7 @@
     <Compile Include="TestXamlWriter.cs" />
     <Compile Include="ThicknessTest.cs" />
     <Compile Include="WebViewSourceTest.cs" />
-    <Compile Include="XamlAssert.cs" />
+    <Compile Include="TestHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

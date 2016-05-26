@@ -25,7 +25,7 @@ namespace Xaml.Android.Tests
 
             var xaml = writer.Save(btn);
 
-            XamlAssert.AreEqual(xaml, "FontSize", "25", "FontSize converter was not executed?");
+            TestHelpers.AreEqual(xaml, "FontSize", "25", "FontSize converter was not executed?");
         }
     }
 }

@@ -9,6 +9,12 @@ namespace XamarinFormsTypeConverters
 {
     public class XamarinFormsHelper
     {
+        public static Element GetParent(Element o)
+        {
+            return o?.Parent;
+        }
+
+
         public static Element[] GetParents(Element o)
         {
             var parents = new List<Element>();

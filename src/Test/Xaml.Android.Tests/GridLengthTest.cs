@@ -40,6 +40,17 @@ namespace Xaml.Android.Tests
             };
 
             var xaml = writer.Save(page);
+
+            var cols = TestHelpers.Get(xaml, "//a:ContentPage/a:Grid/a:Grid.ColumnDefinitions/a:ColumnDefinitionCollection/a:ColumnDefinition");
+            var rows = TestHelpers.Get(xaml, "//a:ContentPage/a:Grid/a:Grid.RowDefinitions/a:RowDefinitionCollection/a:RowDefinition");
+
+            Assert.AreEqual("Auto", cols[0].Attributes["Width"].Value);
+            Assert.AreEqual("15", cols[1].Attributes["Width"].Value);
+            Assert.AreEqual("20", cols[2].Attributes["Width"].Value);
+
+            Assert.AreEqual("Auto", rows[0].Attributes["Height"].Value);
+            Assert.AreEqual("*", rows[1].Attributes["Height"].Value);
+            Assert.AreEqual("100", rows[2].Attributes["Height"].Value);
         }
     }
 }

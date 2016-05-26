@@ -20,7 +20,7 @@ namespace Xaml.Android.Tests
             var btn = new Button();
             var xaml = writer.Save(btn);
 
-            XamlAssert.AreEqual(xaml, "ContentLayout", "Left, 10");
+            TestHelpers.AreEqual(xaml, "ContentLayout", "Left, 10");
         }
     }
 }
