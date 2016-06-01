@@ -546,7 +546,9 @@ namespace Portable.Xaml
             if (xt.TypeArguments != null)
             {
                 // It is for x:TypeArguments
-                yield return XamlLanguage.Xaml2006Namespace;
+                //yield return XamlLanguage.Xaml2006Namespace;
+                yield return XamlLanguage.Xaml2009Namespace;
+
                 foreach (var targ in xt.TypeArguments)
                     foreach (var ns in NamespacesInType(targ))
                         yield return ns;

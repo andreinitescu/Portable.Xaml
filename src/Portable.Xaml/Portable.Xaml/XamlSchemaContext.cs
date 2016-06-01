@@ -183,7 +183,7 @@ namespace Portable.Xaml
 		{
 			if (xmlns == null)
 				throw new ArgumentNullException("xmlns");
-			if (xmlns == XamlLanguage.Xaml2006Namespace)
+			if (xmlns == XamlLanguage.Xaml2009Namespace)
 				return "x";
 			if (prefixes == null)
 			{
@@ -440,7 +440,7 @@ namespace Portable.Xaml
 
 		XamlType ResolveXamlTypeName(string xmlNamespace, string xmlLocalName, XamlType[] typeArguments, bool required)
 		{
-			if (xmlNamespace == XamlLanguage.Xaml2006Namespace)
+			if (xmlNamespace == XamlLanguage.Xaml2009Namespace)
 			{
 				var xt = XamlLanguage.SpecialNames.Find(xmlLocalName, xmlNamespace);
 				if (xt == null)

@@ -29,13 +29,13 @@ using System.Reflection;
 using Portable.Xaml.Schema;
 using Portable.Xaml.Markup;
 
-[assembly:XmlnsDefinition (Portable.Xaml.XamlLanguage.Xaml2006Namespace, "Portable.Xaml.Markup")] // FIXME: verify.
+[assembly:XmlnsDefinition (Portable.Xaml.XamlLanguage.Xaml2009Namespace, "Portable.Xaml.Markup")] // FIXME: verify.
 
 namespace Portable.Xaml
 {
 	public static class XamlLanguage
 	{
-		public const string Xaml2006Namespace = "http://schemas.microsoft.com/winfx/2006/xaml";
+		public const string Xaml2009Namespace = "http://schemas.microsoft.com/winfx/2009/xaml";
 		public const string Xml1998Namespace = "http://www.w3.org/XML/1998/namespace";
 		internal const string Xmlns2000Namespace = "http://www.w3.org/2000/xmlns/";
 
@@ -52,7 +52,7 @@ namespace Portable.Xaml
 
 			public XamlType Find (string name, string ns)
 			{
-				if (ns != XamlLanguage.Xaml2006Namespace)
+				if (ns != XamlLanguage.Xaml2009Namespace)
 					return null;
 				var stn = this.FirstOrDefault (s => s.Name == name);
 				return stn != null ? stn.Type : null;
@@ -119,7 +119,7 @@ namespace Portable.Xaml
 			// To handle this situation, differentiate them from non-primitive XamlMembers.
 			InitializingDirectives = true;
 
-			var nss = new string [] {XamlLanguage.Xaml2006Namespace};
+			var nss = new string [] {Xaml2009Namespace};
 			var nssXml = new string [] {XamlLanguage.Xml1998Namespace};
 
 			Arguments = new XamlDirective (nss, "Arguments", XT<List<object>> (), null, AllowedMemberLocations.Any);
@@ -154,7 +154,7 @@ namespace Portable.Xaml
 			SpecialNames = new SpecialTypeNameList ();
 		}
 
-		static readonly string [] xaml_nss = new string [] {Xaml2006Namespace};
+		static readonly string [] xaml_nss = new string [] {Xaml2009Namespace};
 
 		public static IList<string> XamlNamespaces {
 			get { return xaml_nss; }

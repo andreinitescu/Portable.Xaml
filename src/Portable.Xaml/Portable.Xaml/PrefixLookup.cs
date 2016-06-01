@@ -59,7 +59,7 @@ namespace Portable.Xaml
 		{
 			var l = Namespaces;
 			string prefix, s;
-			if (ns == XamlLanguage.Xaml2006Namespace)
+			if (ns == XamlLanguage.Xaml2009Namespace)
 				prefix = "x";
 			else if (!l.Any (i => i.Prefix == String.Empty))
 				prefix = String.Empty;

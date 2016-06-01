@@ -480,7 +480,7 @@ namespace Portable.Xaml
 						break;
 					case XamlLanguage.Xmlns2000Namespace:
 						continue;
-					case XamlLanguage.Xaml2006Namespace:
+                    case XamlLanguage.Xaml2009Namespace:
 						XamlDirective d = FindStandardDirective (r.LocalName, AllowedMemberLocations.Attribute);
 						if (d != null) {
 							l.Add (new Pair (d, r.Value));

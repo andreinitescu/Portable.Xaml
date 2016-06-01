@@ -104,10 +104,10 @@ namespace Portable.Xaml
 					Name = "Member";
 				else
 					Name = GetXamlName (type);
-				PreferredXamlNamespace = XamlLanguage.Xaml2006Namespace;
+			    PreferredXamlNamespace = XamlLanguage.Xaml2009Namespace;
 			} else if ((xt = XamlLanguage.AllTypes.FirstOrDefault (t => t.UnderlyingType == type)) != null) {
 				Name = xt.Name;
-				PreferredXamlNamespace = XamlLanguage.Xaml2006Namespace;
+				PreferredXamlNamespace = XamlLanguage.Xaml2009Namespace;
 			} else {
 				Name = GetXamlName (type);
 				PreferredXamlNamespace = schemaContext.GetXamlNamespace (type.Namespace) ?? String.Format ("clr-namespace:{0};assembly={1}", type.Namespace, type.GetTypeInfo().Assembly.GetName ().Name);
@@ -484,7 +484,7 @@ namespace Portable.Xaml
 				// check if it's a built-in type
 				if (XamlLanguage.AllTypes.Any(r => r.UnderlyingType == type))
 				{
-					yield return XamlLanguage.Xaml2006Namespace;
+					yield return XamlLanguage.Xaml2009Namespace;
 				}
 
 				// check all other registered namespaces (may duplicate for built-in types, such as xaml markup extensions)

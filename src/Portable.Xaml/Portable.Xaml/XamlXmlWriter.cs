@@ -262,7 +262,7 @@ namespace Portable.Xaml
 					w.WriteString (prefix);
 					w.WriteString (":");
 				}
-				string name = ns == XamlLanguage.Xaml2006Namespace ? xamlType.GetInternalXmlName () : xamlType.Name;
+				string name = ns == XamlLanguage.Xaml2009Namespace ? xamlType.GetInternalXmlName () : xamlType.Name;
 				w.WriteString (name);
 				// space between type and first member (if any).
 				if (xamlType.IsMarkupExtension && xamlType.GetSortedConstructorArguments ().GetEnumerator ().MoveNext ())
@@ -272,7 +272,7 @@ namespace Portable.Xaml
 				w.WriteStartElement (prefix, xamlType.GetInternalXmlName (), xamlType.PreferredXamlNamespace);
 				var l = xamlType.TypeArguments;
 				if (l != null) {
-					w.WriteStartAttribute ("x", "TypeArguments", XamlLanguage.Xaml2006Namespace);
+					w.WriteStartAttribute ("x", "TypeArguments", XamlLanguage.Xaml2009Namespace);
 					for (int i = 0; i < l.Count; i++) {
 						if (i > 0)
 							w.WriteString (", ");
